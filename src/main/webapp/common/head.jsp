@@ -16,3 +16,4 @@
     <!-- Main JS -->
     <script src="<%=request.getContextPath()%>/js/script.js"></script>
 </head>
+
