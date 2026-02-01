@@ -3,7 +3,7 @@
 <%@ page import="com.nilavu.model.User" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Home - Nilavu Basket</title>
@@ -18,32 +18,37 @@
     User user = (User) session.getAttribute("loggedUser");
 %>
 
-<h2>Welcome to Nilavu Basket</h2>
+<div class="container">
+    <h2>Welcome to Nilavu Basket</h2>
 
-<% if (user != null) { %>
-    <p style="text-align:center;">
-        Hello, <strong><%= user.getName() %></strong> 👋  
-        <br>Welcome to your grocery shopping dashboard.
-    </p>
-<% } %>
+    <% if (user != null) { %>
+        <p style="text-align:center; margin-top:10px;">
+            Hello, <strong><%= user.getName() %></strong> 👋  
+            <br>Welcome to your grocery shopping dashboard.
+        </p>
+    <% } %>
 
-<div style="text-align:center; margin-top:20px;">
-    <a href="<%=request.getContextPath()%>/products">
-        <button>View Products</button>
-    </a>
+    <div class="card-grid" style="margin-top:20px;">
 
-    <a href="<%=request.getContextPath()%>/viewCart">
-        <button>My Cart</button>
-    </a>
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/products">View Products</a>
+        </div>
 
-    <a href="<%=request.getContextPath()%>/orderHistory">
-        <button>My Orders</button>
-    </a>
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/viewCart">My Cart</a>
+        </div>
 
-    <a href="<%=request.getContextPath()%>/address">
-        <button>My Address</button>
-    </a>
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/orderHistory">My Orders</a>
+        </div>
+
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/address">My Address</a>
+        </div>
+
+    </div>
 </div>
 
 </body>
 </html>
+

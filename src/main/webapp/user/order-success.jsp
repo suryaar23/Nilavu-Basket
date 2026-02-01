@@ -2,7 +2,7 @@
 <%@ page import="java.util.*, com.nilavu.model.Order, com.nilavu.model.OrderItem" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Order Success - Nilavu Basket</title>
@@ -14,9 +14,9 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2>Order Placed Successfully 🎉</h2>
+    <h2 style="text-align: center;">Order Placed Successfully 🎉</h2>
 
-    <div style="background:white; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.08); max-width:700px; margin:auto;">
+    <div class="form-box" style="max-width:700px;">
         <p><b>Order ID:</b> ${order.orderId}</p>
         <p><b>Order Date:</b> ${order.orderDate}</p>
         <p><b>Status:</b> ${order.status}</p>
@@ -64,3 +64,4 @@
 
 </body>
 </html>
+

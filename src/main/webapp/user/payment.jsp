@@ -8,7 +8,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Payment - Nilavu Basket</title>
@@ -19,23 +19,27 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<h2>Payment</h2>
+<div class="container">
+    <h2>Payment</h2>
 
-<form action="<%=request.getContextPath()%>/payment" method="post">
-    <!-- For now, we assume last order id is passed via session or query.
-         You can improve this later by storing orderId in session -->
-    <input type="hidden" name="orderId" value="<%= request.getParameter("orderId") != null ? request.getParameter("orderId") : "1" %>">
+    <div class="form-box">
+        <form action="<%=request.getContextPath()%>/payment" method="post">
 
-    <label>Select Payment Mode:</label><br><br>
-    <select name="paymentMode" required>
-        <option value="COD">Cash on Delivery</option>
-        <option value="UPI">UPI</option>
-        <option value="CARD">Debit / Credit Card</option>
-    </select>
-    <br><br>
+            <!-- Hidden Order ID -->
+            <input type="hidden" name="orderId"
+                   value="<%= request.getParameter("orderId") != null ? request.getParameter("orderId") : "1" %>">
 
-    <button type="submit">Confirm Payment</button>
-</form>
+            <label>Select Payment Mode</label>
+            <select name="paymentMode" required>
+                <option value="COD">Cash on Delivery</option>
+                <option value="UPI">UPI</option>
+                <option value="CARD">Debit / Credit Card</option>
+            </select>
+
+            <button type="submit" class="btn">Confirm Payment</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

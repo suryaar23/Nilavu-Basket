@@ -3,7 +3,7 @@
 <%@ page import="java.util.*, com.nilavu.model.User, com.nilavu.model.Order" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard - Nilavu Basket</title>
@@ -14,18 +14,33 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<h2>Admin Dashboard</h2>
+<div class="container">
+    <h2>Admin Dashboard</h2>
 
-<h3>Admin Actions</h3>
-<ul>
-	<li><a href="<%=request.getContextPath()%>/admin/products">Manage Products</a></li>
-    <li><a href="<%=request.getContextPath()%>/admin/add-product.jsp">Add Product</a></li>
-    <li><a href="<%=request.getContextPath()%>/admin/add-category.jsp">Add Category</a></li>
-    <li><a href="<%=request.getContextPath()%>/admin/viewOrders">View All Orders</a></li>
-    <li><a href="<%=request.getContextPath()%>/admin/viewUsers">View All Users</a></li>
-</ul>
+    <h3>Admin Actions</h3>
 
-<hr>
+    <div class="card-grid">
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/admin/products">Manage Products</a>
+        </div>
+
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/admin/add-product.jsp">Add Product</a>
+        </div>
+
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/admin/add-category.jsp">Add Category</a>
+        </div>
+
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/admin/viewOrders">View All Orders</a>
+        </div>
+
+        <div class="card">
+            <a href="<%=request.getContextPath()%>/admin/viewUsers">View All Users</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

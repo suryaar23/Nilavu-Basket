@@ -3,7 +3,7 @@
 <%@ page import="com.nilavu.model.Address" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>My Address - Nilavu Basket</title>
@@ -14,31 +14,36 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<h2>Delivery Address</h2>
+<div class="container">
+    <h2>Delivery Address</h2>
 
-<%
-    Address address = (Address) request.getAttribute("address");
-%>
+    <%
+        Address address = (Address) request.getAttribute("address");
+    %>
 
-<form action="<%=request.getContextPath()%>/address" method="post">
-    <label>Street:</label><br>
-    <input type="text" name="street"
-           value="<%= address != null ? address.getStreet() : "" %>" required><br><br>
+    <div class="form-box">
+        <form action="<%=request.getContextPath()%>/address" method="post">
 
-    <label>City:</label><br>
-    <input type="text" name="city"
-           value="<%= address != null ? address.getCity() : "" %>" required><br><br>
+            <label>Street</label>
+            <input type="text" name="street"
+                   value="<%= address != null ? address.getStreet() : "" %>" required>
 
-    <label>State:</label><br>
-    <input type="text" name="state"
-           value="<%= address != null ? address.getState() : "" %>" required><br><br>
+            <label>City</label>
+            <input type="text" name="city"
+                   value="<%= address != null ? address.getCity() : "" %>" required>
 
-    <label>Pincode:</label><br>
-    <input type="text" name="pincode"
-           value="<%= address != null ? address.getPincode() : "" %>" required><br><br>
+            <label>State</label>
+            <input type="text" name="state"
+                   value="<%= address != null ? address.getState() : "" %>" required>
 
-    <button type="submit">Save Address</button>
-</form>
+            <label>Pincode</label>
+            <input type="text" name="pincode"
+                   value="<%= address != null ? address.getPincode() : "" %>" required>
+
+            <button type="submit" class="btn">Save Address</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

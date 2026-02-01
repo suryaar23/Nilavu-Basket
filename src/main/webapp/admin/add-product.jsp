@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Add Product - Nilavu Basket</title>
@@ -13,32 +13,35 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<h2>Add New Product</h2>
+<div class="form-box">
+    <h2>Add New Product</h2>
 
-<form action="<%=request.getContextPath()%>/admin/addProduct" method="post">
-    <label>Product Name:</label><br>
-    <input type="text" name="productName" required><br><br>
+    <form action="<%=request.getContextPath()%>/admin/addProduct" method="post">
+        <label>Product Name</label>
+        <input type="text" name="productName" required>
 
-    <label>Price:</label><br>
-    <input type="text" name="price" required><br><br>
+        <label>Price</label>
+        <input type="text" name="price" required>
 
-    <label>Stock:</label><br>
-    <input type="text" name="stock" required><br><br>
+        <label>Stock</label>
+        <input type="text" name="stock" required>
 
-    <label>Description:</label><br>
-    <textarea name="description" rows="3" cols="30"></textarea><br><br>
+        <label>Description</label>
+        <textarea name="description" rows="3"></textarea>
 
-    <label>Image URL:</label><br>
-    <input type="text" name="imageUrl"><br><br>
+        <label>Image URL</label>
+        <input type="text" name="imageUrl">
 
-    <label>Category ID:</label><br>
-    <input type="text" name="categoryId" required><br><br>
+        <label>Category ID</label>
+        <input type="text" name="categoryId" required>
 
-    <button type="submit">Add Product</button>
-</form>
+        <button type="submit">Add Product</button>
+    </form>
 
-<br>
-<a href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+    <div style="margin-top:15px;">
+        <a href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+    </div>
+</div>
 
 </body>
 </html>

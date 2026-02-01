@@ -2,36 +2,44 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login - Nilavu Basket</title>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 </head>
 <body>
 
 <jsp:include page="../common/navbar.jsp" />
+<jsp:include page="../common/header.jsp" />
 
-<h2>Login</h2>
+<div class="form-box">
+    <h2>Login</h2>
 
-<form action="<%=request.getContextPath()%>/login" method="post">
-    <label>Email:</label><br>
-    <input type="email" name="email" required><br><br>
+    <!-- Added: name and onsubmit for JS validation -->
+    <form name="loginForm"
+          action="<%=request.getContextPath()%>/login"
+          method="post"
+          onsubmit="return validateLogin()">
 
-    <label>Password:</label><br>
-    <input type="password" name="password" required><br><br>
+        <label>Email</label>
+        <input type="email" name="email" required>
 
-    <button type="submit">Login</button>
-</form>
+        <label>Password</label>
+        <input type="password" name="password" required>
 
-<p style="color:red;">
-    <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
-</p>
+        <button type="submit">Login</button>
+    </form>
 
-<p>
-    Don’t have an account?
-    <a href="<%=request.getContextPath()%>/auth/register.jsp" style >Register here</a>
-</p>
+    <p style="color:red; margin-top:10px;">
+        <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
+    </p>
+
+    <p style="margin-top:15px;">
+        Don’t have an account?
+        <a href="<%=request.getContextPath()%>/auth/register.jsp">Register here</a>
+    </p>
+</div>
 
 </body>
 </html>

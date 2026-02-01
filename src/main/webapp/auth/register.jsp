@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Register - Nilavu Basket</title>
@@ -11,33 +11,41 @@
 <body>
 
 <jsp:include page="../common/navbar.jsp" />
+<jsp:include page="../common/header.jsp" />
 
-<h2>Register</h2>
+<div class="form-box">
+    <h2>Register</h2>
 
-<form action="<%=request.getContextPath()%>/register" method="post">
-    <label>Name:</label><br>
-    <input type="text" name="name" required><br><br>
+    <!-- Added: name and onsubmit for JS validation -->
+    <form name="registerForm"
+          action="<%=request.getContextPath()%>/register"
+          method="post"
+          onsubmit="return validateRegister()">
 
-    <label>Email:</label><br>
-    <input type="email" name="email" required><br><br>
+        <label>Name</label>
+        <input type="text" name="name" required>
 
-    <label>Password:</label><br>
-    <input type="password" name="password" required><br><br>
+        <label>Email</label>
+        <input type="email" name="email" required>
 
-    <label>Phone:</label><br>
-    <input type="text" name="phone" required><br><br>
+        <label>Password</label>
+        <input type="password" name="password" required>
 
-    <button type="submit">Register</button>
-</form>
+        <label>Phone</label>
+        <input type="text" name="phone" required>
 
-<p style="color:red;">
-    <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
-</p>
+        <button type="submit">Register</button>
+    </form>
 
-<p>
-    Already have an account?
-    <a href="<%=request.getContextPath()%>/auth/login.jsp">Login here</a>
-</p>
+    <p style="color:red; margin-top:10px;">
+        <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
+    </p>
+
+    <p style="margin-top:15px;">
+        Already have an account?
+        <a href="<%=request.getContextPath()%>/auth/login.jsp">Login here</a>
+    </p>
+</div>
 
 </body>
 </html>

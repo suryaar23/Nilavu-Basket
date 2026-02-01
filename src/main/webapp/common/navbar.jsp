@@ -15,12 +15,12 @@
             }
         %>
 
-        <a href="<%= homeLink %>" style="color:white; text-decoration:none;">
+        <a href="<%= homeLink %>" class="brand-link">
             Nilavu Basket
         </a>
     </div>
 
-    <div>
+    <div class="nav-links">
         <% if (user == null) { %>
             <a href="<%=request.getContextPath()%>/auth/login.jsp">Login</a>
             <a href="<%=request.getContextPath()%>/auth/register.jsp">Register</a>

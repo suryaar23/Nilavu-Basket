@@ -1,4 +1,4 @@
-<div style="background:#f2f2f2; padding:15px; text-align:center;">
+<div class="page-header">
     <h1>Nilavu Basket</h1>
     <p>Your everyday grocery store</p>
     <hr>

@@ -3,7 +3,7 @@
 <%@ page import="java.util.*, com.nilavu.model.User" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>All Users - Nilavu Basket</title>
@@ -14,40 +14,44 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<h2>All Users</h2>
+<div class="container">
+    <h2>All Users</h2>
 
-<table border="1" cellpadding="10">
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-    </tr>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
 
-<%
-    List<User> users = (List<User>) request.getAttribute("users");
-    if (users != null && !users.isEmpty()) {
-        for (User u : users) {
-%>
-    <tr>
-        <td><%= u.getName() %></td>
-        <td><%= u.getEmail() %></td>
-        <td><%= u.getPhone() %></td>
-    </tr>
-<%
+    <%
+        List<User> users = (List<User>) request.getAttribute("users");
+        if (users != null && !users.isEmpty()) {
+            for (User u : users) {
+    %>
+        <tr>
+            <td><%= u.getName() %></td>
+            <td><%= u.getEmail() %></td>
+            <td><%= u.getPhone() %></td>
+        </tr>
+    <%
+            }
+        } else {
+    %>
+        <tr>
+            <td colspan="3">No users found.</td>
+        </tr>
+    <%
         }
-    } else {
-%>
-    <tr>
-        <td colspan="6">No users found.</td>
-    </tr>
-<%
-    }
-%>
+    %>
 
-</table>
+    </table>
 
-<br>
-<a href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+    <div style="margin-top:15px;">
+        <a href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+    </div>
+</div>
 
 </body>
 </html>
+
