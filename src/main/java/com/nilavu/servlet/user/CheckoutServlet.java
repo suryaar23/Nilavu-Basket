@@ -36,6 +36,38 @@ public class CheckoutServlet extends HttpServlet {
     private OrderItemDAO orderItemDAO = new OrderItemDAOImpl();
     private ProductDAO productDAO = new ProductDAOImpl();
 
+    // =========================
+    // SHOW CHECKOUT PAGE
+    // =========================
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        User user = (session != null) ? (User) session.getAttribute("loggedUser") : null;
+
+        if (user == null) {
+            response.sendRedirect("auth/login.jsp");
+            return;
+        }
+
+        int cartId = cartDAO.getOrCreateCart(user.getUserId());
+        List<CartItem> cartItems = cartItemDAO.getCartItems(cartId);
+
+        if (cartItems == null || cartItems.isEmpty()) {
+            response.sendRedirect("viewCart");
+            return;
+        }
+
+        // send cart items to JSP
+        request.setAttribute("cartItems", cartItems);
+        request.getRequestDispatcher("/user/checkout.jsp")
+               .forward(request, response);
+    }
+
+    // =========================
+    // PLACE ORDER
+    // =========================
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -85,22 +117,15 @@ public class CheckoutServlet extends HttpServlet {
             // 6. Mark cart completed
             cartDAO.markCartCompleted(cartId);
 
-
             // store order id for payment page
             session.setAttribute("lastOrderId", orderId);
 
-            // POST → REDIRECT → GET (prevents duplicate order on refresh)
+            // redirect to payment
             response.sendRedirect("user/payment.jsp");
 
         } else {
             response.sendRedirect("viewCart");
         }
     }
-
-    // Optional: block GET access to checkout action
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.sendRedirect("viewCart");
-    }
 }
+

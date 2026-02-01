@@ -24,7 +24,7 @@
     <div class="form-box" style="max-width:600px;">
         <table>
             <tr>
-                <th>Product ID</th>
+                <th>Product Name</th>
                 <th>Quantity</th>
             </tr>
 
@@ -33,7 +33,7 @@
                 for (CartItem ci : cartItems) {
         %>
             <tr>
-                <td><%= ci.getProductId() %></td>
+                <td><%= ci.getProductName() %></td>
                 <td><%= ci.getQuantity() %></td>
             </tr>
         <%

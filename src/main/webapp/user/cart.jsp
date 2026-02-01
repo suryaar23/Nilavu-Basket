@@ -75,14 +75,14 @@
     </table>
 
     <% if (cartItems != null && !cartItems.isEmpty()) { %>
-        <div style="text-align:right; margin-top:20px;">
-            <form action="checkout" method="post">
-                <button class="btn" type="submit">Proceed to Checkout</button>
-            </form>
-        </div>
-    <% } %>
+    <div style="text-align:right; margin-top:20px;">
+        <a href="<%=request.getContextPath()%>/checkout">
+            <button class="btn" type="button">Proceed to Checkout</button>
+        </a>
+    </div>
+	<% } %>
 
-</div>
+	</div>
 
 <jsp:include page="../common/footer.jsp" />
 

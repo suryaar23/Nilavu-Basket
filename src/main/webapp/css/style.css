@@ -201,7 +201,7 @@ tr:nth-child(even) {
     color: #ffffff;
     text-align: center;
     padding: 15px 10px;
-    margin-top: 40px;
+    margin-top: 620px;
     font-size: 14px;
 }
 
@@ -236,4 +236,5 @@ tr:nth-child(even) {
 tr:hover {
     background: #eef2ff;
 }
+
 
