@@ -13,40 +13,43 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<div class="form-box">
-    <h2>Register</h2>
+<div class="container">
+    <h2 style="text-align:center;">Register</h2>
 
-    <!-- Added: name and onsubmit for JS validation -->
-    <form name="registerForm"
-          action="<%=request.getContextPath()%>/register"
-          method="post"
-          onsubmit="return validateRegister()">
+    <div class="form-box" style="max-width:450px;">
 
-        <label>Name</label>
-        <input type="text" name="name" required>
+        <form name="registerForm"
+              action="<%=request.getContextPath()%>/register"
+              method="post"
+              onsubmit="return validateRegister()">
 
-        <label>Email</label>
-        <input type="email" name="email" required>
+            <label>Name</label>
+            <input type="text" name="name" required>
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+            <label>Email</label>
+            <input type="email" name="email" required>
 
-        <label>Phone</label>
-        <input type="text" name="phone" required>
+            <label>Password</label>
+            <input type="password" name="password" required>
 
-        <button type="submit">Register</button>
-    </form>
+            <label>Phone</label>
+            <input type="text" name="phone" required>
 
-    <p style="color:red; margin-top:10px;">
-        <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
-    </p>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="btn">Register</button>
+            </div>
+        </form>
 
-    <p style="margin-top:15px;">
-        Already have an account?
-        <a href="<%=request.getContextPath()%>/auth/login.jsp">Login here</a>
-    </p>
+        <p style="color:red; text-align:center; margin-top:10px;">
+            <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
+        </p>
+
+        <p style="margin-top:15px; text-align:center;">
+            Already have an account?
+            <a href="<%=request.getContextPath()%>/auth/login.jsp">Login here</a>
+        </p>
+    </div>
 </div>
 
 </body>
 </html>
-

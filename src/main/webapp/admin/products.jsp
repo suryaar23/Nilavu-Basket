@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Products</title>
+    <title>Manage Products - Nilavu Basket</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 </head>
 <body>
@@ -14,70 +14,74 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2>Manage Products</h2>
+    <h2 style="text-align:center;">Manage Products</h2>
 
-    <a class="btn" href="<%=request.getContextPath()%>/admin/add-product.jsp">
-        ➕ Add New Product
-    </a>
+    <div style="text-align:right; margin-bottom:15px;">
+        <a class="btn" href="<%=request.getContextPath()%>/admin/add-product.jsp">
+            Add New Product
+        </a>
+    </div>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Price (₹)</th>
-            <th>Stock</th>
-            <th>Description</th>
-            <th>Add Stock</th>
-            <th>Action</th>
-        </tr>
+    <div class="form-box" style="max-width:1100px;">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price (₹)</th>
+                <th>Stock</th>
+                <th>Description</th>
+                <th>Add Stock</th>
+                <th>Action</th>
+            </tr>
 
-    <%
-        List<Product> products = (List<Product>) request.getAttribute("products");
+        <%
+            List<Product> products = (List<Product>) request.getAttribute("products");
 
-        if (products != null && !products.isEmpty()) {
-            for (Product p : products) {
-    %>
-        <tr>
-            <td><%= p.getProductId() %></td>
+            if (products != null && !products.isEmpty()) {
+                for (Product p : products) {
+        %>
+            <tr>
+                <td><%= p.getProductId() %></td>
 
-            <td>
-                <img src="<%=request.getContextPath()+"/"+p.getImageUrl()%>" width="60">
-            </td>
+                <td>
+                    <img src="<%=request.getContextPath()+"/"+p.getImageUrl()%>" width="60" height="60" style="object-fit:cover;">
+                </td>
 
-            <td><%= p.getProductName() %></td>
-            <td><%= p.getPrice() %></td>
-            <td><%= p.getStock() %></td>
-            <td><%= p.getDescription() %></td>
+                <td><%= p.getProductName() %></td>
+                <td>₹ <%= p.getPrice() %></td>
+                <td><%= p.getStock() %></td>
+                <td><%= p.getDescription() %></td>
 
-            <!-- ADD STOCK -->
-            <td>
-                <form action="<%=request.getContextPath()%>/admin/addStock" method="post">
-                    <input type="hidden" name="productId" value="<%=p.getProductId()%>">
-                    <input type="number" name="quantity" min="1" required>
-                    <button class="btn" type="submit">Add</button>
-                </form>
-            </td>
+                <!-- ADD STOCK -->
+                <td>
+                    <form action="<%=request.getContextPath()%>/admin/addStock" method="post" style="display:flex; gap:6px;">
+                        <input type="hidden" name="productId" value="<%=p.getProductId()%>">
+                        <input type="number" name="quantity" min="1" required style="width:70px;">
+                        <button class="btn" type="submit">Add</button>
+                    </form>
+                </td>
 
-            <!-- ACTION -->
-            <td>
-                <a class="btn" href="<%=request.getContextPath()%>/admin/editProduct?id=<%=p.getProductId()%>">
-                    Edit
-                </a>
-            </td>
-        </tr>
-    <%
+                <!-- ACTION -->
+                <td>
+                    <a class="btn" href="<%=request.getContextPath()%>/admin/editProduct?id=<%=p.getProductId()%>">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+        <%
+                }
+            } else {
+        %>
+            <tr>
+                <td colspan="8" style="text-align:center;">No products found.</td>
+            </tr>
+        <%
             }
-        } else {
-    %>
-        <tr>
-            <td colspan="8">No products found.</td>
-        </tr>
-    <%
-        }
-    %>
+        %>
 
-    </table>
+        </table>
+    </div>
 </div>
 
 </body>

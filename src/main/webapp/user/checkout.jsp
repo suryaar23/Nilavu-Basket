@@ -15,49 +15,51 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2>Checkout</h2>
+    <h2 style="text-align:center;">Order Summary</h2>
 
     <%
         List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
     %>
 
-    <table>
-        <tr>
-            <th>Product ID</th>
-            <th>Quantity</th>
-        </tr>
+    <div class="form-box" style="max-width:600px;">
+        <table>
+            <tr>
+                <th>Product ID</th>
+                <th>Quantity</th>
+            </tr>
 
-    <%
-        if (cartItems != null && !cartItems.isEmpty()) {
-            for (CartItem ci : cartItems) {
-    %>
-        <tr>
-            <td><%= ci.getProductId() %></td>
-            <td><%= ci.getQuantity() %></td>
-        </tr>
-    <%
+        <%
+            if (cartItems != null && !cartItems.isEmpty()) {
+                for (CartItem ci : cartItems) {
+        %>
+            <tr>
+                <td><%= ci.getProductId() %></td>
+                <td><%= ci.getQuantity() %></td>
+            </tr>
+        <%
+                }
+            } else {
+        %>
+            <tr>
+                <td colspan="2" style="text-align:center;">No items in cart.</td>
+            </tr>
+        <%
             }
-        } else {
-    %>
-        <tr>
-            <td colspan="2">No items in cart.</td>
-        </tr>
-    <%
-        }
-    %>
+        %>
 
-    </table>
+        </table>
 
-    <div style="text-align:center; margin-top:15px;">
-        <form action="<%=request.getContextPath()%>/checkout" method="post">
-            <button type="submit" class="btn">Confirm & Place Order</button>
-        </form>
-    </div>
+        <div style="text-align:center; margin-top:20px;">
+            <form action="<%=request.getContextPath()%>/checkout" method="post">
+                <button type="submit" class="btn">Confirm & Place Order</button>
+            </form>
+        </div>
 
-    <div style="text-align:center; margin-top:10px;">
-        <a href="<%=request.getContextPath()%>/viewCart">
-            <button type="button" class="btn">Back to Cart</button>
-        </a>
+        <div style="text-align:center; margin-top:10px;">
+            <a href="<%=request.getContextPath()%>/viewCart">
+                <button type="button" class="btn">Back to Cart</button>
+            </a>
+        </div>
     </div>
 </div>
 

@@ -22,7 +22,7 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2>My Cart</h2>
+    <h2 style="text-align:center;">My Cart</h2>
 
     <table>
         <tr>
@@ -44,12 +44,12 @@
     %>
         <tr>
             <td><%= ci.getProductName() %></td>
-            <td><%= ci.getPrice() %></td>
+            <td>₹ <%= ci.getPrice() %></td>
             <td><%= ci.getQuantity() %></td>
-            <td><%= itemTotal %></td>
+            <td>₹ <%= itemTotal %></td>
             <td>
                 <a class="btn btn-danger"
-                   onclick="return confirmDelete('Remove this item?')"
+                   onclick="return confirmDelete('Remove this item from cart?')"
                    href="<%=request.getContextPath()%>/removeFromCart?cartItemId=<%=ci.getCartItemId()%>">
                    Remove
                 </a>
@@ -59,14 +59,14 @@
             }
     %>
         <tr>
-            <td colspan="3"><b>Grand Total</b></td>
+            <td colspan="3" style="text-align:right;"><b>Grand Total</b></td>
             <td colspan="2"><b>₹ <%= grandTotal %></b></td>
         </tr>
     <%
         } else {
     %>
         <tr>
-            <td colspan="5">Your cart is empty.</td>
+            <td colspan="5" style="text-align:center;">Your cart is empty.</td>
         </tr>
     <%
         }
@@ -75,9 +75,11 @@
     </table>
 
     <% if (cartItems != null && !cartItems.isEmpty()) { %>
-        <form action="checkout" method="post" style="margin-top:15px;">
-            <button class="btn" type="submit">Proceed to Checkout</button>
-        </form>
+        <div style="text-align:right; margin-top:20px;">
+            <form action="checkout" method="post">
+                <button class="btn" type="submit">Proceed to Checkout</button>
+            </form>
+        </div>
     <% } %>
 
 </div>

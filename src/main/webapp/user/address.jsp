@@ -15,13 +15,13 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2>Delivery Address</h2>
+    <h2 style="text-align:center;">Delivery Address</h2>
 
     <%
         Address address = (Address) request.getAttribute("address");
     %>
 
-    <div class="form-box">
+    <div class="form-box" style="max-width:500px;">
         <form action="<%=request.getContextPath()%>/address" method="post">
 
             <label>Street</label>
@@ -40,12 +40,12 @@
             <input type="text" name="pincode"
                    value="<%= address != null ? address.getPincode() : "" %>" required>
 
-            <button type="submit" class="btn">Save Address</button>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="btn">Save Address</button>
+            </div>
         </form>
     </div>
 </div>
 
 </body>
 </html>
-
-

@@ -20,9 +20,9 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2>Payment</h2>
+    <h2 style="text-align:center;">Payment</h2>
 
-    <div class="form-box">
+    <div class="form-box" style="max-width:500px;">
         <form action="<%=request.getContextPath()%>/payment" method="post">
 
             <!-- Hidden Order ID -->
@@ -36,11 +36,12 @@
                 <option value="CARD">Debit / Credit Card</option>
             </select>
 
-            <button type="submit" class="btn">Confirm Payment</button>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="btn">Confirm Payment</button>
+            </div>
         </form>
     </div>
 </div>
 
 </body>
 </html>
-

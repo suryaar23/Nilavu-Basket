@@ -14,15 +14,15 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2 style="text-align: center;">Order Placed Successfully 🎉</h2>
+    <h2 style="text-align:center;">Order Placed Successfully</h2>
 
-    <div class="form-box" style="max-width:700px;">
+    <div class="form-box" style="max-width:750px;">
         <p><b>Order ID:</b> ${order.orderId}</p>
         <p><b>Order Date:</b> ${order.orderDate}</p>
         <p><b>Status:</b> ${order.status}</p>
         <p><b>Total Amount:</b> ₹ ${order.totalAmount}</p>
 
-        <h3 style="margin-top:20px;">Items</h3>
+        <h3 style="margin-top:20px;">Order Items</h3>
 
         <table>
             <tr>
@@ -39,14 +39,14 @@
             <tr>
                 <td><%= i.getProductName() %></td>
                 <td><%= i.getQuantity() %></td>
-                <td><%= i.getPrice() %></td>
+                <td>₹ <%= i.getPrice() %></td>
             </tr>
         <%
                 }
             } else {
         %>
             <tr>
-                <td colspan="3">No items found.</td>
+                <td colspan="3" style="text-align:center;">No items found.</td>
             </tr>
         <%
             }
@@ -54,7 +54,7 @@
         </table>
     </div>
 
-    <div style="text-align:center; margin-top:30px;">
+    <div style="text-align:center; margin-top:25px;">
         <a class="btn" href="<%=request.getContextPath()%>/products">Continue Shopping</a>
         <a class="btn" href="<%=request.getContextPath()%>/user/home.jsp">Go to Home</a>
     </div>

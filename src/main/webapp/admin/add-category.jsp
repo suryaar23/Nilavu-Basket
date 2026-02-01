@@ -13,18 +13,22 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<div class="form-box">
-    <h2>Add New Category</h2>
+<div class="container">
+    <h2 style="text-align:center;">Add New Category</h2>
 
-    <form action="<%=request.getContextPath()%>/admin/addCategory" method="post">
-        <label>Category Name</label>
-        <input type="text" name="categoryName" required>
+    <div class="form-box" style="max-width:400px;">
+        <form action="<%=request.getContextPath()%>/admin/addCategory" method="post">
+            <label>Category Name</label>
+            <input type="text" name="categoryName" required>
 
-        <button type="submit">Add Category</button>
-    </form>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="btn">Add Category</button>
+            </div>
+        </form>
 
-    <div style="margin-top:15px;">
-        <a href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+        <div style="text-align:center; margin-top:15px;">
+            <a href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+        </div>
     </div>
 </div>
 

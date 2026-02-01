@@ -13,36 +13,40 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<div class="form-box">
-    <h2>Add New Product</h2>
+<div class="container">
+    <h2 style="text-align:center;">Add New Product</h2>
 
-    <form action="<%=request.getContextPath()%>/admin/addProduct" method="post">
-        <label>Product Name</label>
-        <input type="text" name="productName" required>
+    <div class="form-box" style="max-width:500px;">
+        <form action="<%=request.getContextPath()%>/admin/addProduct" method="post">
 
-        <label>Price</label>
-        <input type="text" name="price" required>
+            <label>Product Name</label>
+            <input type="text" name="productName" required>
 
-        <label>Stock</label>
-        <input type="text" name="stock" required>
+            <label>Price</label>
+            <input type="text" name="price" required>
 
-        <label>Description</label>
-        <textarea name="description" rows="3"></textarea>
+            <label>Stock</label>
+            <input type="text" name="stock" required>
 
-        <label>Image URL</label>
-        <input type="text" name="imageUrl">
+            <label>Description</label>
+            <textarea name="description" rows="3"></textarea>
 
-        <label>Category ID</label>
-        <input type="text" name="categoryId" required>
+            <label>Image URL</label>
+            <input type="text" name="imageUrl">
 
-        <button type="submit">Add Product</button>
-    </form>
+            <label>Category ID</label>
+            <input type="text" name="categoryId" required>
 
-    <div style="margin-top:15px;">
-        <a href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="btn">Add Product</button>
+            </div>
+        </form>
+
+        <div style="text-align:center; margin-top:15px;">
+            <a href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+        </div>
     </div>
 </div>
 
 </body>
 </html>
-

@@ -14,13 +14,13 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2>Update Product</h2>
+    <h2 style="text-align:center;">Update Product</h2>
 
     <%
         Product product = (Product) request.getAttribute("product");
     %>
 
-    <div class="form-box">
+    <div class="form-box" style="max-width:500px;">
         <form action="<%=request.getContextPath()%>/admin/updateProduct" method="post">
 
             <!-- Hidden Product ID -->
@@ -50,11 +50,13 @@
             <input type="number" name="categoryId"
                    value="<%= product != null ? product.getCategoryId() : "" %>" required>
 
-            <button type="submit" class="btn">Update Product</button>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="btn">Update Product</button>
+            </div>
         </form>
 
-        <div style="margin-top:15px;">
-            <a href="<%=request.getContextPath()%>/admin/products">⬅ Back to Products</a>
+        <div style="text-align:center; margin-top:15px;">
+            <a href="<%=request.getContextPath()%>/admin/products">Back to Products</a>
         </div>
     </div>
 </div>
@@ -63,5 +65,3 @@
 
 </body>
 </html>
-
-

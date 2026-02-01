@@ -15,39 +15,41 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2>My Orders</h2>
+    <h2 style="text-align:center;">Order History</h2>
 
-    <table>
-        <tr>
-            <th>Order ID</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Total Amount (₹)</th>
-        </tr>
+    <div class="form-box" style="max-width:900px;">
+        <table>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total Amount (₹)</th>
+            </tr>
 
-    <%
-        List<Order> orders = (List<Order>) request.getAttribute("orders");
-        if (orders != null && !orders.isEmpty()) {
-            for (Order o : orders) {
-    %>
-        <tr>
-            <td><%= o.getOrderId() %></td>
-            <td><%= o.getOrderDate() %></td>
-            <td><%= o.getStatus() %></td>
-            <td><%= o.getTotalAmount() %></td>
-        </tr>
-    <%
+        <%
+            List<Order> orders = (List<Order>) request.getAttribute("orders");
+            if (orders != null && !orders.isEmpty()) {
+                for (Order o : orders) {
+        %>
+            <tr>
+                <td><%= o.getOrderId() %></td>
+                <td><%= o.getOrderDate() %></td>
+                <td><%= o.getStatus() %></td>
+                <td>₹ <%= o.getTotalAmount() %></td>
+            </tr>
+        <%
+                }
+            } else {
+        %>
+            <tr>
+                <td colspan="4" style="text-align:center;">No orders found.</td>
+            </tr>
+        <%
             }
-        } else {
-    %>
-        <tr>
-            <td colspan="4">No orders found.</td>
-        </tr>
-    <%
-        }
-    %>
+        %>
 
-    </table>
+        </table>
+    </div>
 </div>
 
 </body>

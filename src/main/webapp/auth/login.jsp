@@ -13,32 +13,36 @@
 <jsp:include page="../common/navbar.jsp" />
 <jsp:include page="../common/header.jsp" />
 
-<div class="form-box">
-    <h2>Login</h2>
+<div class="container">
+    <h2 style="text-align:center;">Login</h2>
 
-    <!-- Added: name and onsubmit for JS validation -->
-    <form name="loginForm"
-          action="<%=request.getContextPath()%>/login"
-          method="post"
-          onsubmit="return validateLogin()">
+    <div class="form-box" style="max-width:400px;">
 
-        <label>Email</label>
-        <input type="email" name="email" required>
+        <form name="loginForm"
+              action="<%=request.getContextPath()%>/login"
+              method="post"
+              onsubmit="return validateLogin()">
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+            <label>Email</label>
+            <input type="email" name="email" required>
 
-        <button type="submit">Login</button>
-    </form>
+            <label>Password</label>
+            <input type="password" name="password" required>
 
-    <p style="color:red; margin-top:10px;">
-        <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
-    </p>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="btn">Login</button>
+            </div>
+        </form>
 
-    <p style="margin-top:15px;">
-        Don’t have an account?
-        <a href="<%=request.getContextPath()%>/auth/register.jsp">Register here</a>
-    </p>
+        <p style="color:red; text-align:center; margin-top:10px;">
+            <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
+        </p>
+
+        <p style="margin-top:15px; text-align:center;">
+            Don’t have an account?
+            <a href="<%=request.getContextPath()%>/auth/register.jsp">Register here</a>
+        </p>
+    </div>
 </div>
 
 </body>
