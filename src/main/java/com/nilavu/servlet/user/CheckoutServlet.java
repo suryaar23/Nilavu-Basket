@@ -36,9 +36,9 @@ public class CheckoutServlet extends HttpServlet {
     private OrderItemDAO orderItemDAO = new OrderItemDAOImpl();
     private ProductDAO productDAO = new ProductDAOImpl();
 
-    // =========================
+
     // SHOW CHECKOUT PAGE
-    // =========================
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -65,9 +65,9 @@ public class CheckoutServlet extends HttpServlet {
                .forward(request, response);
     }
 
-    // =========================
+  
     // PLACE ORDER
-    // =========================
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -97,10 +97,13 @@ public class CheckoutServlet extends HttpServlet {
         for (CartItem item : cartItems) {
             totalAmount += item.getPrice() * item.getQuantity();
         }
-
+        
+        int shopId = productDAO.getProductById(cartItems.get(0).getProductId()).getShop_id();
+        
+       
         // 2. Create order
-        int orderId = orderDAO.createOrder(user.getUserId(), totalAmount);
-
+        int orderId = orderDAO.createOrder(user.getUserId(), totalAmount,shopId);
+        
         if (orderId > 0) {
 
             // 3. Insert order items

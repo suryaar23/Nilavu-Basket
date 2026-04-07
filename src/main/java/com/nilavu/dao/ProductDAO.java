@@ -6,6 +6,7 @@ import com.nilavu.model.Product;
 public interface ProductDAO {
     List<Product> getAllProducts();
     List<Product> getProductsByCategory(int categoryId);
+    List<Product> getProductsByShopId(int shop_id);
     void addProduct(Product p);
     void updateProduct(Product p);
     void deleteProduct(int id);
@@ -13,5 +14,4 @@ public interface ProductDAO {
     boolean reduceStock(int productId, int qty); // ✅ NEW
 	int getStockByProductId(int productId);
 	Product getProductById(int productId);
-
 }

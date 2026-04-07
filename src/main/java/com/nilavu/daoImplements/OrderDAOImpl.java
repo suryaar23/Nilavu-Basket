@@ -11,9 +11,9 @@ import com.nilavu.util.DBConnection;
 public class OrderDAOImpl implements OrderDAO {
 
     @Override
-    public int createOrder(int userId, double totalAmount) {
+    public int createOrder(int userId, double totalAmount, int shop_id) {
         int orderId = -1;
-        String sql = "INSERT INTO orders(user_id, order_date, total_amount) VALUES(?,?,?)";
+        String sql = "INSERT INTO orders(user_id, order_date, total_amount, shop_id) VALUES(?,?,?,?)";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -21,6 +21,7 @@ public class OrderDAOImpl implements OrderDAO {
             ps.setInt(1, userId);
             ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
             ps.setDouble(3, totalAmount);
+            ps.setInt(4, shop_id);
 
             ps.executeUpdate();
 
@@ -134,6 +135,126 @@ public class OrderDAOImpl implements OrderDAO {
         }
 
         return o;
+    }
+    
+    public List<Order> getOrdersByShopId (int shop_id){
+    	List<Order> list = new ArrayList<>();
+    	
+    	String sql = "SELECT * FROM orders WHERE shop_id = ?";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    				
+    		ps.setInt(1, shop_id);
+    		ResultSet rs = ps.executeQuery();
+    				
+    		while(rs.next()) {
+    			Order o = new Order();
+    			o.setOrderId(rs.getInt("order_id"));
+                o.setOrderDate(rs.getTimestamp("order_date").toLocalDateTime());
+                o.setStatus(rs.getString("status"));
+                o.setTotalAmount(rs.getDouble("total_amount"));
+                o.setShop_id(rs.getInt("shop_id"));
+                list.add(o);
+    		}
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return list;
+    }
+    
+    public void updateOrderStatus(int orderId, String status){
+    	String sql = "UPDATE orders SET status = ? WHERE order_id = ?";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    		
+    		ps.setString(1,status);
+    		ps.setInt(2,orderId);
+    		ps.executeUpdate();
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    public void assignAgent(int orderId, int agent_id) {
+    	
+    	String sql = "UPDATE orders SET agent_id = ? , status = 'ASSIGNED' WHERE order_id = ? ";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    		
+    		ps.setInt(1, agent_id);
+    		ps.setInt(2, orderId);
+    		
+    		ps.executeUpdate();
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    public List<Order> getOrdersByAgentId(int agentId){
+		
+		List<Order> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM orders WHERE agent_id = ?";
+		
+		try(Connection con = DBConnection.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql)){
+			
+			ps.setInt(1, agentId);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Order o = new Order();
+				
+				o.setOrderId(rs.getInt("order_id"));
+				o.setUserId(rs.getInt("user_id"));
+				o.setOrderDate(rs.getTimestamp("order_date").toLocalDateTime());
+				o.setStatus(rs.getString("status"));
+				o.setTotalAmount(rs.getDouble("total_amount"));
+				o.setShop_id(rs.getInt("shop_id"));
+				o.setAgent_id(rs.getInt("agent_id"));
+				
+				list.add(o);
+			}
+		}
+		
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+    
+    public 	int getAgentIdByOrderId(int orderId) {
+    	
+    	int agentId = -1;    //TODO: replace with proper agent_id
+    	
+    	String sql = "SELECT agent_id FROM orders WHERE order_id = ?";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    		
+    		ps.setInt(1, orderId);
+    		ResultSet rs = ps.executeQuery();
+    		
+    		if(rs.next()) {
+    			agentId = rs.getInt("agent_id");
+    		}
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return agentId;
     }
 }
 

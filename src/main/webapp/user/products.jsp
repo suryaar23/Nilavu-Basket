@@ -52,6 +52,10 @@
             <p style="margin-top:5px;">
                 Stock: <b><%= p.getStock() %></b>
             </p>
+            
+            <p style="margin-top:5px;">
+                Shop: <b><%= p.getShop_id() %></b>
+            </p>
 
             <% if (p.getStock() > 0) { %>
                 <a class="btn"

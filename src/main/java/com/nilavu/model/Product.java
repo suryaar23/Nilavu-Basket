@@ -8,9 +8,10 @@ public class Product {
     private String description;
     private String imageUrl;
     private int categoryId;
+    private int shop_id;
     // getters and setters
 	public Product(int productId, String productName, double price, int stock, String description, String imageUrl,
-			int categoryId) {
+			int categoryId , int shop_id) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -19,6 +20,7 @@ public class Product {
 		this.description = description;
 		this.imageUrl = imageUrl;
 		this.categoryId = categoryId;
+		this.shop_id = shop_id;
 	}
 	public Product() {
 		super();
@@ -65,11 +67,17 @@ public class Product {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
+	public int getShop_id() {
+		return shop_id;
+	}
+	public void setShop_id(int shop_id) {
+		this.shop_id = shop_id;
+	}
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + ", stock="
 				+ stock + ", description=" + description + ", imageUrl=" + imageUrl + ", categoryId=" + categoryId
-				+ "]";
+				+ ", shop_id=" + shop_id + "]";
 	}
     
 }

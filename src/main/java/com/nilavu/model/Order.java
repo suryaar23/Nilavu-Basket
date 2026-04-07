@@ -9,16 +9,20 @@ public class Order {
     private String status;
     private double totalAmount;
     private String userName;
+    private int shop_id;
+    private int agent_id;
 
     // getters and setters
     
-	public Order(int orderId, int userId, LocalDateTime orderDate, String status, double totalAmount, String userName) {
+	public Order(int orderId, int userId, LocalDateTime orderDate, String status, double totalAmount, String userName,int shop_id, int agent_id) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
 		this.orderDate = orderDate;
 		this.status = status;
 		this.totalAmount = totalAmount;
+		this.shop_id = shop_id;
+		this.agent_id = agent_id;
 	}
 	public Order() {
 		super();
@@ -60,9 +64,23 @@ public class Order {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public int getShop_id() {
+		return shop_id;
+	}
+	public void setShop_id(int shop_id) {
+		this.shop_id = shop_id;
+	}
+	public int getAgent_id() {
+		return agent_id;
+	}
+	public void setAgent_id(int agent_id) {
+		this.agent_id = agent_id;
+	}
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", userId=" + userId + ", userName=" + userName + ", orderDate=" + orderDate + ", status=" + status
-				+ ", totalAmount=" + totalAmount + "]";
+		return "Order [orderId=" + orderId + ", userId=" + userId + ", orderDate=" + orderDate + ", status=" + status
+				+ ", totalAmount=" + totalAmount + ", userName=" + userName + ", shop_id=" + shop_id + ", agent_id="
+				+ agent_id + "]";
 	}
+	
 }

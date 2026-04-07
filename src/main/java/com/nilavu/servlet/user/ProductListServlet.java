@@ -22,10 +22,21 @@ public class ProductListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<Product> productList = productDAO.getAllProducts();
-
-        request.setAttribute("products", productList);
+    	
+    	String shopIdParameter = request.getParameter("shopId");
+    	
+        List<Product> products;
+        
+        if(shopIdParameter!= null) {
+        	int shopId = Integer.parseInt(shopIdParameter);
+        	products = productDAO.getProductsByShopId(shopId);
+        }
+        else {
+        	products = productDAO.getAllProducts();
+        	request.setAttribute("products", products);
+        }
+        
+        request.setAttribute("products", products);
         request.getRequestDispatcher("user/products.jsp").forward(request, response);
     }
 }

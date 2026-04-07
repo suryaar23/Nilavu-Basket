@@ -34,9 +34,21 @@ public class LoginServlet extends HttpServlet {
 
             if ("ADMIN".equalsIgnoreCase(user.getRole())) {
                 response.sendRedirect("admin/admin-dashboard.jsp");
-            } else {
-                response.sendRedirect("user/home.jsp");
             }
+            
+            else if("SHOP".equalsIgnoreCase(user.getRole())){
+                response.sendRedirect("shop/shop-dashboard.jsp");
+            }
+            
+            else if("AGENT".equalsIgnoreCase(user.getRole())) {
+            	response.sendRedirect("agent/agent-dashboard.jsp");
+            }
+            
+            else {
+            	response.sendRedirect("user/home.jsp");
+            }
+            
+            
         } else {
             request.setAttribute("error", "Invalid email or password");
             request.getRequestDispatcher("auth/login.jsp").forward(request, response);

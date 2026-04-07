@@ -26,6 +26,7 @@ public class ProductDAOImpl implements ProductDAO {
                 p.setDescription(rs.getString("description"));
                 p.setImageUrl(rs.getString("image_url"));
                 p.setCategoryId(rs.getInt("category_id"));
+                p.setShop_id(rs.getInt("shop_id"));
                 list.add(p);
             }
 
@@ -63,10 +64,41 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return list;
     }
+    
+    public List<Product> getProductsByShopId(int shop_id){
+    	List<Product> list = new ArrayList<>();
+    	String sql = "SELECT * FROM products WHERE shop_id=?";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    			
+    		ps.setInt(1, shop_id);
+    		ResultSet rs = ps.executeQuery();
+    		
+    		while(rs.next()) {
+    			Product p = new Product();
+    			p.setProductId(rs.getInt("product_id"));
+    			p.setProductName(rs.getString("product_name"));
+    			p.setPrice(rs.getDouble("price"));
+    			p.setStock(rs.getInt("stock"));
+    			p.setDescription(rs.getString("description"));
+                p.setImageUrl(rs.getString("image_url"));
+                p.setCategoryId(rs.getInt("category_id"));
+                p.setShop_id(rs.getInt("shop_id"));
+                list.add(p);
+    		}	
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return list;
+    }
 
     @Override
     public void addProduct(Product p) {
-        String sql = "INSERT INTO products(product_name,price,stock,description,image_url,category_id) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO products(product_name,price,stock,description,image_url,category_id,shop_id) VALUES(?,?,?,?,?,?,?)";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -77,6 +109,7 @@ public class ProductDAOImpl implements ProductDAO {
             ps.setString(4, p.getDescription());
             ps.setString(5, p.getImageUrl());
             ps.setInt(6, p.getCategoryId());
+            ps.setInt(7, p.getShop_id());
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -198,6 +231,7 @@ public class ProductDAOImpl implements ProductDAO {
                 p.setDescription(rs.getString("description"));
                 p.setImageUrl(rs.getString("image_url"));
                 p.setCategoryId(rs.getInt("category_id"));
+                p.setShop_id(rs.getInt("shop_id"));
             }
 
         } catch (Exception e) {
