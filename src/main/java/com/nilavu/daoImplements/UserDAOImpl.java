@@ -27,6 +27,7 @@ public class UserDAOImpl implements UserDAO {
                 user.setEmail(rs.getString("email"));
                 user.setRole(rs.getString("role"));
                 user.setPhone(rs.getString("phone"));
+                user.setShop_id(rs.getInt("shop_id"));
             }
 
         } catch (Exception e) {

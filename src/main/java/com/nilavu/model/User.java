@@ -8,11 +8,12 @@ public class User {
     private String password;
     private String role;
     private String phone;
+    private int shop_id;
     
 	public User() {
 		super();
 	}
-	public User(int userId, String name, String email, String password, String role, String phone) {
+	public User(int userId, String name, String email, String password, String role, String phone, int shop_id) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -57,10 +58,17 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public int getShop_id() {
+		return shop_id;
+	}
+	public void setShop_id(int shop_id) {
+		this.shop_id = shop_id;
+	}
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password + ", role="
-				+ role + ", phone=" + phone + "]";
+				+ role + ", phone=" + phone + ", shop_id=" + shop_id + "]";
 	}
+	
 	
 }

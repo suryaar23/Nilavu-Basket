@@ -1,0 +1,94 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.*, com.nilavu.model.Product" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Products - Shop</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
+</head>
+<body>
+
+<jsp:include page="../common/navbar.jsp" />
+<jsp:include page="../common/header.jsp" />
+
+<div class="container">
+    <h2 style="text-align:center;">My Products</h2>
+
+    <!-- ADD PRODUCT -->
+    <div style="text-align:right; margin-bottom:15px;">
+        <a class="btn" href="<%=request.getContextPath()%>/shop/add-product">
+            Add New Product
+        </a>
+    </div>
+
+    <div class="form-box" style="max-width:1100px;">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price (₹)</th>
+                <th>Stock</th>
+                <th>Description</th>
+                <th>Add Stock</th>
+                <th>Action</th>
+            </tr>
+
+        <%
+            List<Product> products = (List<Product>) request.getAttribute("products");
+
+            if (products != null && !products.isEmpty()) {
+                for (Product p : products) {
+        %>
+            <tr>
+                <td><%= p.getProductId() %></td>
+
+                <td>
+                    <img src="<%=request.getContextPath()+"/"+p.getImageUrl()%>" width="60" height="60" >
+                </td>
+
+                <td><%= p.getProductName() %></td>
+                <td>₹ <%= p.getPrice() %></td>
+                <td><%= p.getStock() %></td>
+                <td><%= p.getDescription() %></td>
+
+                <!-- ADD STOCK -->
+                <td>
+                    <form action="<%=request.getContextPath()%>/shop/add-stock" method="post">
+                        <input type="hidden" name="productId" value="<%=p.getProductId()%>">
+                        <input type="number" name="quantity" min="1" required style="width:70px;">
+                        <button class="btn" type="submit">Add</button>
+                    </form>
+                </td>
+
+                <!-- ACTION -->
+                <td>
+                    <a class="btn" href="<%=request.getContextPath()%>/shop/edit-product?id=<%=p.getProductId()%>">
+                        Edit
+                    </a>
+
+                    <a class="btn" href="<%=request.getContextPath()%>/shop/delete-product?id=<%=p.getProductId()%>"
+   					onclick="return confirm('Are you sure you want to delete this product?');">
+   						Delete
+					</a>
+                </td>
+            </tr>
+        <%
+                }
+            } else {
+        %>
+            <tr>
+                <td colspan="8" style="text-align:center;">No products found.</td>
+            </tr>
+        <%
+            }
+        %>
+
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

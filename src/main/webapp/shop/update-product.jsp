@@ -21,7 +21,7 @@
     %>
 
     <div class="form-box" style="max-width:500px;">
-        <form action="<%=request.getContextPath()%>/admin/updateProduct" method="post">
+        <form action="<%=request.getContextPath()%>/shop/update-product" method="post">
 
             <!-- Hidden Product ID -->
             <input type="hidden" name="productId"
@@ -56,7 +56,7 @@
         </form>
 
         <div style="text-align:center; margin-top:15px;">
-            <a href="<%=request.getContextPath()%>/admin/products">Back to Products</a>
+            <a href="<%=request.getContextPath()%>/shop/products">Back to Products</a>
         </div>
     </div>
 </div>
