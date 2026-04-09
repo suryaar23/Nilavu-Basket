@@ -16,7 +16,7 @@ import com.nilavu.daoImplements.UserDAOImpl;
 import com.nilavu.model.Order;
 import com.nilavu.model.User;
 
-@WebServlet("/admin/dashboard")
+@WebServlet("/admin/admin-dashboard")
 public class AdminDashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

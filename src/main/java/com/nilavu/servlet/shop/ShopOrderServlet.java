@@ -33,9 +33,19 @@ public class ShopOrderServlet extends HttpServlet{
 			}
 			
 			
-			int shopId = 1;  //Important ***** get id properly later
+			int shopId = u.getShop_id();
 			
-			List<Order> orders = orderDAO.getOrdersByShopId(shopId);
+			String filter = request.getParameter("filter");
+						
+			List<Order> orders;
+			
+			if("completed".equals(filter)) {
+				orders = orderDAO.getCompletedOrdersByShopId(shopId);
+			}
+			
+			else {
+				orders = orderDAO.getActiveOrdersByShopId(shopId);
+			}
 			
 			request.setAttribute("orders", orders);
 			

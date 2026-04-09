@@ -33,19 +33,19 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("loggedUser", user);
 
             if ("ADMIN".equalsIgnoreCase(user.getRole())) {
-                response.sendRedirect("admin/admin-dashboard.jsp");
+                response.sendRedirect("admin/admin-dashboard");
             }
             
             else if("SHOP".equalsIgnoreCase(user.getRole())){
-                response.sendRedirect("shop/shop-dashboard.jsp");
+                response.sendRedirect("shop/shop-dashboard");
             }
             
             else if("AGENT".equalsIgnoreCase(user.getRole())) {
-            	response.sendRedirect("agent/agent-dashboard.jsp");
+            	response.sendRedirect("agent/agent-dashboard");
             }
             
             else {
-            	response.sendRedirect("user/home.jsp");
+            	response.sendRedirect("user/home");
             }
             
             

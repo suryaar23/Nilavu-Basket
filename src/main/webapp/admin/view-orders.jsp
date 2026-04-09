@@ -57,7 +57,7 @@
         </table>
 
         <div style="text-align:center; margin-top:15px;">
-            <a class="btn" href="<%=request.getContextPath()%>/admin/dashboard">Back to Dashboard</a>
+            <a class="btn" href="<%=request.getContextPath()%>/admin/admin-dashboard">Back to Dashboard</a>
         </div>
     </div>
 </div>

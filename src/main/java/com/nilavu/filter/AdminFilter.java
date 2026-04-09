@@ -1,25 +1,15 @@
 package com.nilavu.filter;
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
 import com.nilavu.model.User;
 
-@WebFilter(urlPatterns = {"/admin/*"})
+@WebFilter("/admin/*")
 public class AdminFilter implements Filter {
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -29,22 +19,21 @@ public class AdminFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
         HttpSession session = req.getSession(false);
+        User user = (session != null) ? (User) session.getAttribute("loggedUser") : null;
 
-        if (session == null || session.getAttribute("loggedUser") == null) {
+        // Not logged in
+        if (user == null) {
             res.sendRedirect(req.getContextPath() + "/auth/login.jsp");
             return;
         }
 
-        User user = (User) session.getAttribute("loggedUser");
-
-        if (!"ADMIN".equalsIgnoreCase(user.getRole())) {
-            res.sendRedirect(req.getContextPath() + "/user/home.jsp");
+        // Not admin
+        if (!"ADMIN".equals(user.getRole())) {
+            res.sendRedirect(req.getContextPath() + "/user/home");
             return;
         }
 
+        // Allowed
         chain.doFilter(request, response);
     }
-
-    @Override
-    public void destroy() {}
 }

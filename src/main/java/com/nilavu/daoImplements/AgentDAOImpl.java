@@ -58,4 +58,33 @@ public class AgentDAOImpl implements AgentDAO{
 				e.printStackTrace();
 			}
 		}
+		
+		public List<Agent> getAllAgents(){
+			
+			List<Agent> list = new ArrayList<>();
+			String sql = "SELECT * FROM agents";
+			
+			try(Connection con = DBConnection.getConnection();
+					PreparedStatement ps = con.prepareStatement(sql);
+					ResultSet rs = ps.executeQuery()){
+				
+				while(rs.next()) {
+					Agent a = new Agent();
+					
+					a.setAgent_id(rs.getInt("agent_id"));
+					a.setName(rs.getString("name"));
+					a.setPhone(rs.getString("phone"));
+					a.setStatus(rs.getString("status"));
+				
+					list.add(a);
+				}
+			}
+			
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+		
 }

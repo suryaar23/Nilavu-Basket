@@ -27,4 +27,12 @@ public interface OrderDAO {
     public List<Order> getOrdersByAgentId(int agentId);
     
     int getAgentIdByOrderId(int orderId);
+    
+    List<Order> getActiveOrdersByShopId(int shopId);
+    
+    List<Order> getCompletedOrdersByShopId(int shopId);
+    
+    List<Order> getCompletedOrdersByAgentId(int agentId);
+    
+    List<Order> getActiveOrdersByAgentId(int agentId);
 }

@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, com.nilavu.model.User, com.nilavu.model.Order" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,41 +15,46 @@
 <div class="container">
     <h2 style="text-align:center;">Admin Dashboard</h2>
     <p style="text-align:center; margin-top:5px;">
-        Manage products, categories, users, and orders from one place.
+        Manage users, shops, agents, and orders.
     </p>
 
     <h3 style="margin-top:30px; text-align:center;">Admin Actions</h3>
 
     <div class="card-grid" style="margin-top:20px;">
 
+        <!-- USERS -->
         <div class="card">
-            <h3>📦 Products</h3>
-            <p style="margin-top:8px;">View and manage all products.</p>
-            <a class="btn" href="<%=request.getContextPath()%>/admin/products">Manage Products</a>
+            <h3>👥 Users</h3>
+            <p>View all registered users.</p>
+            <a class="btn" href="<%=request.getContextPath()%>/admin/viewUsers">View Users</a>
         </div>
 
-        <div class="card">
-            <h3>➕ Add Product</h3>
-            <p style="margin-top:8px;">Add new items to the catalog.</p>
-            <a class="btn" href="<%=request.getContextPath()%>/admin/add-product.jsp">Add Product</a>
-        </div>
-
-        <div class="card">
-            <h3>🗂 Categories</h3>
-            <p style="margin-top:8px;">Create and manage product categories.</p>
-            <a class="btn" href="<%=request.getContextPath()%>/admin/add-category.jsp">Add Category</a>
-        </div>
-
+        <!-- ORDERS -->
         <div class="card">
             <h3>🧾 Orders</h3>
-            <p style="margin-top:8px;">View all customer orders.</p>
+            <p>View all customer orders.</p>
             <a class="btn" href="<%=request.getContextPath()%>/admin/viewOrders">View Orders</a>
         </div>
 
+        <!-- SHOPS -->
         <div class="card">
-            <h3>👥 Users</h3>
-            <p style="margin-top:8px;">View registered users.</p>
-            <a class="btn" href="<%=request.getContextPath()%>/admin/viewUsers">View Users</a>
+            <h3>🏪 Shops</h3>
+            <p>View all registered shops.</p>
+            <a class="btn" href="<%=request.getContextPath()%>/admin/manage-shops">View Shops</a>
+        </div>
+
+        <!-- AGENTS -->
+        <div class="card">
+            <h3>🚚 Agents</h3>
+            <p>View all delivery agents.</p>
+            <a class="btn" href="<%=request.getContextPath()%>/admin/manage-agents">View Agents</a>
+        </div>
+
+        <!-- OPTIONAL: PRODUCTS (READ ONLY) -->
+        <div class="card">
+            <h3>📦 Products</h3>
+            <p>View all products (read-only).</p>
+            <a class="btn" href="<%=request.getContextPath()%>/admin/products">View Products</a>
         </div>
 
     </div>
@@ -59,4 +62,3 @@
 
 </body>
 </html>
-

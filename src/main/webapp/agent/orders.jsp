@@ -3,12 +3,12 @@
 <%@ page import="java.util.*, com.nilavu.model.Order" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Agent - Delivery</title>
+    <meta charset="UTF-8">
+    <title>Agent Orders - Nilavu Basket</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 </head>
-
 <body>
 
 <jsp:include page="../common/navbar.jsp" />
@@ -18,53 +18,59 @@
     <h2 style="text-align:center;">Assigned Orders</h2>
 
     <div class="form-box" style="max-width:900px;">
-        <table border="1" width="100%" cellpadding="10">
-            
-            <!-- TABLE HEADER -->
+        <table>
             <tr>
                 <th>Order ID</th>
+                <th>Date</th>
                 <th>Status</th>
+                <th>Total Amount (₹)</th>
                 <th>Action</th>
             </tr>
 
-            <%
-                List<Order> orders = (List<Order>) request.getAttribute("orders");
+        <%
+            List<Order> orders = (List<Order>) request.getAttribute("orders");
 
-                if (orders != null && !orders.isEmpty()) {
-                    for (Order o : orders) {
-            %>
+            if (orders != null && !orders.isEmpty()) {
+                for (Order o : orders) {
+        %>
 
             <tr>
                 <td><%= o.getOrderId() %></td>
+                <td><%= o.getOrderDate() %></td>
                 <td><%= o.getStatus() %></td>
+                <td>₹ <%= o.getTotalAmount() %></td>
 
                 <td>
                     <% if ("ASSIGNED".equals(o.getStatus())) { %>
-                        <a href="<%=request.getContextPath()%>/agent/start-delivery?orderId=<%=o.getOrderId()%>">
+                        <a class="btn"
+                           href="<%=request.getContextPath()%>/agent/start-delivery?orderId=<%=o.getOrderId()%>">
                             Start Delivery
                         </a>
+
                     <% } else if ("OUT FOR DELIVERY".equals(o.getStatus())) { %>
-                        <a href="<%=request.getContextPath()%>/agent/complete-delivery?orderId=<%=o.getOrderId()%>">
-                            Delivered
+                        <a class="btn"
+                           href="<%=request.getContextPath()%>/agent/complete-delivery?orderId=<%=o.getOrderId()%>">
+                            Mark Delivered
                         </a>
+
                     <% } else { %>
-                        -
+                        <span style="color:gray;">Completed</span>
                     <% } %>
                 </td>
             </tr>
 
-            <%
-                    }
-                } else {
-            %>
+        <%
+                }
+            } else {
+        %>
 
             <tr>
-                <td colspan="3" style="text-align:center;">No orders assigned</td>
+                <td colspan="5" style="text-align:center;">No orders assigned</td>
             </tr>
 
-            <%
-                }
-            %>
+        <%
+            }
+        %>
 
         </table>
     </div>

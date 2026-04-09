@@ -9,9 +9,17 @@
 
             if (user != null) {
                 if ("ADMIN".equals(user.getRole())) {
-                    homeLink = request.getContextPath() + "/admin/dashboard";
-                } else {
-                    homeLink = request.getContextPath() + "/user/home.jsp";
+                    homeLink = request.getContextPath() + "admin/admin-dashboard";
+                } 
+                else if("SHOP".equals(user.getRole())){
+                	homeLink = request.getContextPath() + "shop/shop-dashboard";
+                }
+                
+                else if("AGENT".equals(user.getRole())){
+                	homeLink = request.getContextPath() + "agent/agent-dashboard";
+                }
+                else {
+                    homeLink = request.getContextPath() + "user/homed";
                 }
             }
         %>
@@ -33,7 +41,19 @@
                 <a href="<%=request.getContextPath()%>/admin/viewUsers">Users</a>
                 <a href="<%=request.getContextPath()%>/admin/viewOrders">Orders</a>
                 <a class="btn-nav danger" href="<%=request.getContextPath()%>/logout">Logout</a>
-
+                
+             <% } else if ("SHOP".equals(user.getRole())) { %>
+                <a href="<%=request.getContextPath()%>/shop/shop-dashboard">Dashboard</a>
+                <a href="<%=request.getContextPath()%>/shop/products">Products</a>
+                <a href="<%=request.getContextPath()%>/shop/orders?filter=completed">Orders</a>
+                <a class="btn-nav danger" href="<%=request.getContextPath()%>/logout">Logout</a>
+                
+                
+			<% } else if ("AGENT".equals(user.getRole())) { %>
+                <a href="<%=request.getContextPath()%>/agent/agent-dashboard.jsp">Dashboard</a>
+                <a class="btn-nav danger" href="<%=request.getContextPath()%>/logout">Logout</a>
+                
+                
             <% } else { %>
                 <a href="<%=request.getContextPath()%>/user/home.jsp">Home</a>
                 <a href="<%=request.getContextPath()%>/products">Products</a>

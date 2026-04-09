@@ -256,5 +256,160 @@ public class OrderDAOImpl implements OrderDAO {
     	
     	return agentId;
     }
+    
+    public List<Order> getActiveOrdersByShopId(int shopId) {
+    	
+    	List<Order> list = new ArrayList<>();
+    	String sql = "SELECT * FROM orders WHERE shop_id = ? AND status IN ('PLACED','CONFIRMED','ASSIGNED','OUT FOR DELIVERY')";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    		
+    		ps.setInt(1, shopId);
+    		ResultSet rs = ps.executeQuery();
+    		
+    		while(rs.next()) {
+    			Order o = new Order();
+    			
+    			o.setOrderId(rs.getInt("order_id"));
+    			o.setUserId(rs.getInt("user_id"));
+    			
+    			Timestamp ts = rs.getTimestamp("order_date");
+                if (ts != null) {
+                    o.setOrderDate(ts.toLocalDateTime());
+                }
+                
+    			o.setStatus(rs.getString("status"));
+    			o.setTotalAmount(rs.getDouble("total_amount"));
+    			o.setShop_id(rs.getInt("shop_id"));
+    			o.setAgent_id(rs.getInt("agent_id"));
+    			list.add(o);
+    		}
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return list;
+    }
+    
+    public List<Order> getCompletedOrdersByShopId(int shopId){
+    	
+    	List<Order> list = new ArrayList<>();
+    	String sql = "SELECT * FROM orders WHERE shop_id = ? AND status = 'DELIVERED'";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    		
+    		ps.setInt(1, shopId);
+    		ResultSet rs = ps.executeQuery();
+    		
+    		while(rs.next()) {
+    			
+    			Order o = new Order();
+    			
+    			o.setOrderId(rs.getInt("order_id"));
+    			o.setUserId(rs.getInt("user_id"));
+    			
+    			Timestamp ts = rs.getTimestamp("order_date");
+                if (ts != null) {
+                    o.setOrderDate(ts.toLocalDateTime());
+                }
+                
+    			o.setStatus(rs.getString("status"));
+    			o.setTotalAmount(rs.getDouble("total_amount"));
+    			o.setShop_id(rs.getInt("shop_id"));
+    			o.setAgent_id(rs.getInt("agent_id"));
+    			
+    			list.add(o);
+    		}
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return list;
+    }
+    
+    public List<Order> getCompletedOrdersByAgentId(int agentId){
+    	
+    	List<Order> list = new ArrayList<>();
+    	String sql = "SELECT * FROM orders WHERE agent_id = ? AND status = 'DELIVERED'";
+    	
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    		
+    		
+    		ps.setInt(1, agentId);
+    		ResultSet rs = ps.executeQuery();
+    		
+    		while(rs.next()) {
+    			Order o = new Order();
+    			
+    			o.setOrderId(rs.getInt("order_id"));
+    			o.setUserId(rs.getInt("user_id"));
+    			
+    			Timestamp ts = rs.getTimestamp("order_date");
+                if (ts != null) {
+                    o.setOrderDate(ts.toLocalDateTime());
+                }
+                
+    			o.setStatus(rs.getString("status"));
+    			o.setTotalAmount(rs.getDouble("total_amount"));
+    			o.setShop_id(rs.getInt("shop_id"));
+    			o.setAgent_id(rs.getInt("agent_id"));
+    			
+    			list.add(o);
+    		}
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return list;
+    }
+    
+    public List<Order> getActiveOrdersByAgentId(int agentId){
+    	
+    	List<Order> list = new ArrayList<>();
+    	String sql = "SELECT * FROM orders WHERE agent_id = ? AND status IN ('ASSIGNED','OUT FOR DELIVERY')";
+    	
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    		
+    		ps.setInt(1, agentId);
+    		ResultSet rs = ps.executeQuery();
+    		
+    		while(rs.next()) {
+    			Order o = new Order();
+    			
+    			o.setOrderId(rs.getInt("order_id"));
+    			o.setUserId(rs.getInt("user_id"));
+    			
+    			Timestamp ts = rs.getTimestamp("order_date");
+                if (ts != null) {
+                    o.setOrderDate(ts.toLocalDateTime());
+                }
+                
+    			o.setStatus(rs.getString("status"));
+    			o.setTotalAmount(rs.getDouble("total_amount"));
+    			o.setShop_id(rs.getInt("shop_id"));
+    			o.setAgent_id(rs.getInt("agent_id"));
+    			
+    			list.add(o);
+    		}
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return list;
+    }
 }
 

@@ -1,11 +1,9 @@
-package com.nilavu.servlet.agent;
+package com.nilavu.servlet.shop;
 
 import java.io.IOException;
 import java.util.List;
 
-import com.nilavu.dao.AgentDAO;
 import com.nilavu.dao.OrderDAO;
-import com.nilavu.daoImplements.AgentDAOImpl;
 import com.nilavu.daoImplements.OrderDAOImpl;
 import com.nilavu.model.Order;
 import com.nilavu.model.User;
@@ -17,42 +15,30 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/agent/orders")
-public class AgentOrdersServlet extends HttpServlet{
+@WebServlet("/shop/shop-dashboard")
+public class ShopDashboardServlet extends HttpServlet{
 	
 	private OrderDAO orderDAO = new OrderDAOImpl();
 	
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException{
+		throws ServletException,IOException{
 			
 			HttpSession session = request.getSession();
 			User u = (User) session.getAttribute("loggedUser");
 			
-			if(u == null || !"AGENT".equals(u.getRole())) {
+			if(u == null || !"SHOP".equals(u.getRole())) {
 				response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
 				return;
 			}
 			
-			int agentId = u.getAgent_id();
+			int shopId = u.getShop_id();
 			
-			String filter = request.getParameter("filter");
+			List<Order> ao = orderDAO.getActiveOrdersByShopId(shopId);
+			List<Order> co = orderDAO.getCompletedOrdersByShopId(shopId);
 			
-			List<Order> o;
+			request.setAttribute("activeOrders", ao);
+			request.setAttribute("completedOrders", co);
 			
-			if("completed".equals(filter)) {
-				o = orderDAO.getCompletedOrdersByAgentId(agentId);
-			}
-			
-			else if("active".equals(filter)) {
-				o = orderDAO.getActiveOrdersByAgentId(agentId);
-			}
-			
-			else {
-				o = orderDAO.getOrdersByAgentId(agentId);
-			}
-			
-			request.setAttribute("orders", o);
-			request.getRequestDispatcher("/agent/orders.jsp").forward(request, response);
+			request.getRequestDispatcher("/shop/shop-dashboard.jsp").forward(request, response);
 	}
 }

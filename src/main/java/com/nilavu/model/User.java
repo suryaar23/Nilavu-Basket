@@ -9,11 +9,12 @@ public class User {
     private String role;
     private String phone;
     private int shop_id;
+    private int agent_id;
     
 	public User() {
 		super();
 	}
-	public User(int userId, String name, String email, String password, String role, String phone, int shop_id) {
+	public User(int userId, String name, String email, String password, String role, String phone, int shop_id, int agent_id) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -64,11 +65,16 @@ public class User {
 	public void setShop_id(int shop_id) {
 		this.shop_id = shop_id;
 	}
+	
+	public int getAgent_id() {
+		return agent_id;
+	}
+	public void setAgent_id(int agent_id) {
+		this.agent_id = agent_id;
+	}
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password + ", role="
-				+ role + ", phone=" + phone + ", shop_id=" + shop_id + "]";
+				+ role + ", phone=" + phone + ", shop_id=" + shop_id + ", agent_id=" + agent_id + "]";
 	}
-	
-	
 }

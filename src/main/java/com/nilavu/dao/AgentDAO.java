@@ -9,4 +9,5 @@ public interface AgentDAO {
 	
 	Agent getAvailableAgent();
 	void updateAgentStatus(int agentId, String status);
+	List<Agent> getAllAgents();
 }

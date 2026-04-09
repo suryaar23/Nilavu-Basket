@@ -19,6 +19,15 @@ public class AddProductServlet extends HttpServlet{
 	
 	private ProductDAO productDAO = new ProductDAOImpl();
 	
+	
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.getRequestDispatcher("/shop/add-product.jsp")
+               .forward(request, response);
+    }
+    
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException{
 		

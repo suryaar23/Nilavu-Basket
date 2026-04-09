@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Products - Nilavu Basket</title>
+    <title>All Products - Admin</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 </head>
 <body>
@@ -14,13 +14,7 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2 style="text-align:center;">Manage Products</h2>
-
-    <div style="text-align:right; margin-bottom:15px;">
-        <a class="btn" href="<%=request.getContextPath()%>/admin/add-product.jsp">
-            Add New Product
-        </a>
-    </div>
+    <h2 style="text-align:center;">All Products (Read Only)</h2>
 
     <div class="form-box" style="max-width:1100px;">
         <table>
@@ -31,7 +25,7 @@
                 <th>Price (₹)</th>
                 <th>Stock</th>
                 <th>Description</th>
-                <th>Add Stock</th>
+                <th>Shop ID</th>
                 <th>Action</th>
             </tr>
 
@@ -45,27 +39,19 @@
                 <td><%= p.getProductId() %></td>
 
                 <td>
-                    <img src="<%=request.getContextPath()+"/"+p.getImageUrl()%>" width="60" height="60" style="object-fit:cover;">
+                    <img src="<%=request.getContextPath()+"/"+p.getImageUrl()%>" width="60" height="60">
                 </td>
 
                 <td><%= p.getProductName() %></td>
                 <td>₹ <%= p.getPrice() %></td>
                 <td><%= p.getStock() %></td>
                 <td><%= p.getDescription() %></td>
+                <td><%= p.getShop_id() %></td>
 
-                <!-- ADD STOCK -->
+                <!-- ADMIN CONTROL -->
                 <td>
-                    <form action="<%=request.getContextPath()%>/admin/addStock" method="post" style="display:flex; gap:6px;">
-                        <input type="hidden" name="productId" value="<%=p.getProductId()%>">
-                        <input type="number" name="quantity" min="1" required style="width:70px;">
-                        <button class="btn" type="submit">Add</button>
-                    </form>
-                </td>
-
-                <!-- ACTION -->
-                <td>
-                    <a class="btn" href="<%=request.getContextPath()%>/admin/editProduct?id=<%=p.getProductId()%>">
-                        Edit
+                    <a class="btn" href="<%=request.getContextPath()%>/admin/deleteProduct?id=<%=p.getProductId()%>">
+                        Remove
                     </a>
                 </td>
             </tr>
@@ -86,4 +72,3 @@
 
 </body>
 </html>
-
