@@ -17,7 +17,8 @@
 <div class="container">
     <h2 style="text-align:center;">Assigned Orders</h2>
 
-    <div class="form-box" style="max-width:900px;">
+    <div class="form-box" style="max-width:900px; margin:auto;">
+
         <table>
             <tr>
                 <th>Order ID</th>
@@ -40,7 +41,8 @@
                 <td><%= o.getStatus() %></td>
                 <td>₹ <%= o.getTotalAmount() %></td>
 
-                <td>
+                <td style="text-align:center;">
+
                     <% if ("ASSIGNED".equals(o.getStatus())) { %>
                         <a class="btn"
                            href="<%=request.getContextPath()%>/agent/start-delivery?orderId=<%=o.getOrderId()%>">
@@ -56,6 +58,14 @@
                     <% } else { %>
                         <span style="color:gray;">Completed</span>
                     <% } %>
+
+                    <br>
+
+                    <a class="btn"
+                       href="<%=request.getContextPath()%>/common/order-details?orderId=<%=o.getOrderId()%>">
+                        View Details
+                    </a>
+
                 </td>
             </tr>
 
@@ -65,7 +75,9 @@
         %>
 
             <tr>
-                <td colspan="5" style="text-align:center;">No orders assigned</td>
+                <td colspan="5" style="text-align:center;">
+                    No orders assigned
+                </td>
             </tr>
 
         <%

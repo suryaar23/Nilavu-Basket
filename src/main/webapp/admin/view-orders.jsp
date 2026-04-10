@@ -16,11 +16,12 @@
 
 <div class="container">
     <h2 style="text-align:center;">All Orders</h2>
+
     <p style="text-align:center; margin-top:5px;">
         View and monitor all customer orders.
     </p>
 
-    <div class="form-box" style="max-width:1000px;">
+    <div class="form-box" style="max-width:1000px; margin:auto;">
 
         <table>
             <tr>
@@ -29,27 +30,43 @@
                 <th>Order Date</th>
                 <th>Status</th>
                 <th>Total Amount (₹)</th>
+                <th>Action</th> <!-- ✅ Added -->
             </tr>
 
         <%
             List<Order> orders = (List<Order>) request.getAttribute("orders");
+
             if (orders != null && !orders.isEmpty()) {
                 for (Order o : orders) {
         %>
+
             <tr>
                 <td><%= o.getOrderId() %></td>
                 <td><%= o.getUserName() %></td>
                 <td><%= o.getOrderDate() %></td>
                 <td><%= o.getStatus() %></td>
                 <td>₹ <%= o.getTotalAmount() %></td>
+
+                <!-- ✅ FIXED: inside td -->
+                <td style="text-align:center;">
+                    <a class="btn"
+                       href="<%=request.getContextPath()%>/common/order-details?orderId=<%=o.getOrderId()%>">
+                        View Details
+                    </a>
+                </td>
             </tr>
+
         <%
                 }
             } else {
         %>
+
             <tr>
-                <td colspan="5" style="text-align:center;">No orders found.</td>
+                <td colspan="6" style="text-align:center;"> <!-- ✅ fixed colspan -->
+                    No orders found.
+                </td>
             </tr>
+
         <%
             }
         %>
@@ -57,8 +74,12 @@
         </table>
 
         <div style="text-align:center; margin-top:15px;">
-            <a class="btn" href="<%=request.getContextPath()%>/admin/admin-dashboard">Back to Dashboard</a>
+            <a class="btn"
+               href="<%=request.getContextPath()%>/admin/admin-dashboard">
+                Back to Dashboard
+            </a>
         </div>
+
     </div>
 </div>
 

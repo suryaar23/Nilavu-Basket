@@ -17,41 +17,58 @@
 <div class="container">
     <h2 style="text-align:center;">Order History</h2>
 
-    <div class="form-box" style="max-width:900px;">
+    <div class="form-box" style="max-width:900px; margin:auto;">
+
         <table>
             <tr>
                 <th>Order ID</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Total Amount (₹)</th>
+                <th>Action</th> <!-- ✅ added -->
             </tr>
 
         <%
             List<Order> orders = (List<Order>) request.getAttribute("orders");
+
             if (orders != null && !orders.isEmpty()) {
                 for (Order o : orders) {
         %>
+
             <tr>
                 <td><%= o.getOrderId() %></td>
                 <td><%= o.getOrderDate() %></td>
                 <td><%= o.getStatus() %></td>
                 <td>₹ <%= o.getTotalAmount() %></td>
-                
-                <td>
-                	<% if ("PLACED".equals(o.getStatus())) { %>                                        <%//if confirm clicked , remove confirm button %>
-    					<a href="<%=request.getContextPath()%>/shop/confirm-order?orderId=<%=o.getOrderId()%>">
-        					Confirm
-    					</a>
-					<% } %>
+
+                <td style="text-align:center;">
+                    <% if ("PLACED".equals(o.getStatus())) { %>
+                        <a class="btn"
+                           href="<%=request.getContextPath()%>/shop/confirm-order?orderId=<%=o.getOrderId()%>">
+                            Confirm
+                        </a>
+                    <% } %>
+
+                    <br><br>
+
+                    <a class="btn"
+                       href="<%=request.getContextPath()%>/common/order-details?orderId=<%=o.getOrderId()%>">
+                        View Details
+                    </a>
                 </td>
             </tr>
+
         <%
                 }
             } else {
         %>
+
             <tr>
-                <td colspan="4" style="text-align:center;">No orders found.</td>
+                <td colspan="5" style="text-align:center;"> <!-- ✅ fixed -->
+                    No orders found.
+                </td>
             </tr>
+
         <%
             }
         %>
@@ -62,5 +79,4 @@
 
 </body>
 </html>
-
 
