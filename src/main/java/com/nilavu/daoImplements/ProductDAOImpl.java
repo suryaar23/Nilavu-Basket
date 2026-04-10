@@ -239,6 +239,56 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return p;
     }
-
+    
+    public List<Product> searchProducts(String keyword, String categoryId){
+    	
+    	List<Product> list = new ArrayList<>();
+    	StringBuilder sql = new StringBuilder("SELECT * FROM products WHERE 1=1");
+    	
+    	if(keyword != null && !keyword.isEmpty()) {
+    		sql.append(" AND product_name LIKE ?");
+    	}
+    	
+    	if(categoryId != null && !categoryId.isBlank()) {
+    		sql.append(" AND category_id = ?");
+    	}
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql.toString())){
+    		
+    		int index = 1;
+    		
+    		if(keyword != null && !keyword.isEmpty()) {
+    			ps.setString(index++, "%" + keyword + "%");
+    		}
+    		
+    		if(categoryId != null && !categoryId.isEmpty()) {
+    			ps.setInt(index++, Integer.parseInt(categoryId));
+    		}
+    		
+    		ResultSet rs = ps.executeQuery();
+    		
+    		while(rs.next()) {
+    			Product p = new Product();
+    			
+    			p.setProductId(rs.getInt("product_id"));
+                p.setProductName(rs.getString("product_name"));
+                p.setPrice(rs.getDouble("price"));
+                p.setStock(rs.getInt("stock"));
+                p.setImageUrl(rs.getString("image_url"));
+                p.setDescription(rs.getString("description"));
+                p.setCategoryId(rs.getInt("category_id"));
+                p.setShop_id(rs.getInt("shop_id"));
+                
+                list.add(p);
+    		}
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return list;
+    }
 }
 

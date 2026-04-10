@@ -16,12 +16,12 @@
     <div class="form-box" style="max-width:450px; text-align:center;">
         <h2>Something went wrong</h2>
         <p style="margin-top:10px;">
-            Please try again later or go back to the home page.
+            Please try again later.
         </p>
 
         <div style="margin-top:20px;">
-            <a class="btn" href="<%= request.getContextPath() %>/index.jsp">
-                Go Home
+            <a class="btn" href="<%= request.getContextPath() %>/auth/login.jsp">
+                Go back to Login
             </a>
         </div>
     </div>

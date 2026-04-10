@@ -64,7 +64,12 @@
             <p style="margin-top:10px;">Manage your delivery address.</p>
             <a class="btn" href="<%=request.getContextPath()%>/address">My Address</a>
         </div>
-
+		
+		<div class="card">
+    		<h3>🏪 Browse Shops</h3>
+    		<p style="margin-top:10px;">Explore products shop-wise.</p>
+    		<a class="btn" href="<%=request.getContextPath()%>/shops">View Shops</a>
+		</div>
     </div>
 
 </div>

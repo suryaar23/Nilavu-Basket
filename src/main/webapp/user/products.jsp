@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, com.nilavu.model.Product" %>
+<%@ page import="java.util.*, com.nilavu.model.Product, com.nilavu.model.Category" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +14,32 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2 style="text-align:center;">Available Products</h2>
 
+    <!-- 🧠 Dynamic Heading -->
+    <%
+        String shopId = request.getParameter("shopId");
+        String keyword = request.getParameter("keyword");
+    %>
+
+    <h2 style="text-align:center;">
+        <%
+            if (keyword != null && !keyword.isEmpty()) {
+        %>
+            Search Results
+        <%
+            } else if (shopId != null && !shopId.isEmpty()) {	
+        %>
+            Shop Products
+        <%
+            } else {
+        %>
+            All Products
+        <%
+            }
+        %>
+    </h2>
+
+    <!-- ❌ ERROR MESSAGE -->
     <%
         String error = request.getParameter("error");
         if ("limitreached".equals(error)) {
@@ -27,54 +51,110 @@
         }
     %>
 
+    <!-- 🔍 SEARCH + FILTER (GLOBAL ONLY) -->
+    <form method="get" action="<%=request.getContextPath()%>/products"
+          style="display:flex; gap:10px; justify-content:center; margin-bottom:20px;">
+
+        <input type="text" name="keyword"
+               placeholder="Search products..."
+               value="<%= request.getParameter("keyword") != null ? request.getParameter("keyword") : "" %>">
+
+        <select name="categoryId">
+            <option value="">All Categories</option>
+
+            <%
+                List<Category> categories = (List<Category>) request.getAttribute("categories");
+
+                if (categories != null) {
+                    for (Category c : categories) {
+            %>
+
+            <option value="<%=c.getCategoryId()%>"
+                <%= String.valueOf(c.getCategoryId())
+                    .equals(request.getParameter("categoryId")) ? "selected" : "" %>>
+
+                <%=c.getCategoryName()%>
+
+            </option>
+
+            <%
+                    }
+                }
+            %>
+        </select>
+
+        <button class="btn" type="submit">Search</button>
+    </form>
+
+    <!-- 🛍 PRODUCTS GRID -->
     <div class="card-grid" style="margin-top:20px;">
 
     <%
         List<Product> products = (List<Product>) request.getAttribute("products");
+
         if (products != null && !products.isEmpty()) {
             for (Product p : products) {
     %>
-        <div class="card" style="text-align:center;">
 
+        <div class="card" style="text-align:center; padding:15px;">
+
+            <!-- IMAGE -->
             <img src="<%= request.getContextPath() + "/" + p.getImageUrl() %>"
-                 width="140" height="140" style="object-fit:cover; margin-bottom:10px;">
+                 width="140" height="140"
+                 style="object-fit:cover; margin-bottom:10px;">
 
+            <!-- NAME -->
             <h3><%= p.getProductName() %></h3>
 
+            <!-- PRICE -->
             <p style="font-weight:bold; color:#2563eb; margin-top:5px;">
                 ₹ <%= p.getPrice() %>
             </p>
 
+            <!-- DESCRIPTION -->
             <p style="margin-top:5px; font-size:14px;">
                 <%= p.getDescription() %>
             </p>
 
-            <p style="margin-top:5px;">
+            <!-- STOCK -->
+            <p style="margin-top:5px; color:<%= p.getStock() > 5 ? "green" : "orange" %>;">
                 Stock: <b><%= p.getStock() %></b>
             </p>
-            
-            <p style="margin-top:5px;">
-                Shop: <b><%= p.getShop_id() %></b>
+
+            <!-- SHOP  -->
+            <p style="margin-top:5px; font-size:13px;">
+                Shop ID: <%= p.getShop_id() %>
             </p>
 
-            <% if (p.getStock() > 0) { %>
+            <!-- ACTION -->
+             <% if (p.getStock() > 0) { %>
                 <a class="btn"
-                   href="<%=request.getContextPath()%>/addToCart?productId=<%=p.getProductId()%>">
-                    Add to Cart
-                </a>
+   				   href="<%=request.getContextPath()%>/addToCart?productId=<%=p.getProductId()%>&keyword=<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>&categoryId=<%=request.getParameter("categoryId") != null ? request.getParameter("categoryId") : ""%>&shopId=<%=request.getParameter("shopId") != null ? request.getParameter("shopId") : ""%>">
+    				Add to Cart
+				</a>
             <% } else { %>
-                <p style="color:red; font-weight:bold; margin-top:8px;">Out of Stock</p>
+
+                <p style="color:red; font-weight:bold; margin-top:8px;">
+                    Out of Stock
+                </p>
+
                 <button class="btn" disabled>
                     Unavailable
                 </button>
+
             <% } %>
 
         </div>
+
     <%
             }
         } else {
     %>
-        <p style="text-align:center; margin-top:20px;">No products available.</p>
+
+        <p style="text-align:center; margin-top:20px;">
+            No products available.
+        </p>
+
     <%
         }
     %>
@@ -84,4 +164,3 @@
 
 </body>
 </html>
-

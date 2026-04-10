@@ -19,7 +19,7 @@
                 	homeLink = request.getContextPath() + "agent/agent-dashboard";
                 }
                 else {
-                    homeLink = request.getContextPath() + "user/homed";
+                    homeLink = request.getContextPath() + "user/home";
                 }
             }
         %>
@@ -36,7 +36,7 @@
                 <a class="btn-nav" href="<%=request.getContextPath()%>/auth/register.jsp">Register</a>
 
             <% } else if ("ADMIN".equals(user.getRole())) { %>
-                <a href="<%=request.getContextPath()%>/admin/dashboard">Dashboard</a>
+                <a href="<%=request.getContextPath()%>/admin/admin-dashboard">Dashboard</a>
                 <a href="<%=request.getContextPath()%>/admin/products">Products</a>
                 <a href="<%=request.getContextPath()%>/admin/viewUsers">Users</a>
                 <a href="<%=request.getContextPath()%>/admin/viewOrders">Orders</a>

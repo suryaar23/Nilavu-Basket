@@ -20,7 +20,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
                 ps.setInt(1, orderId);
                 ps.setInt(2, ci.getProductId());
                 ps.setInt(3, ci.getQuantity());
-                ps.setDouble(4, ci.getPrice()); // ✅ REAL PRICE
+                ps.setDouble(4, ci.getPrice()); 
                 ps.executeUpdate();
             }
 
@@ -29,7 +29,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
         }
     }
 
-    // ✅ JOIN to get names
+    
     @Override
     public List<OrderItem> getOrderItems(int orderId) {
         List<OrderItem> list = new ArrayList<>();

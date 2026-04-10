@@ -14,4 +14,5 @@ public interface ProductDAO {
     boolean reduceStock(int productId, int qty); // ✅ NEW
 	int getStockByProductId(int productId);
 	Product getProductById(int productId);
+	List<Product> searchProducts(String keyword, String categoryId);
 }
