@@ -8,7 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import com.nilavu.dao.OrderDAO;
 import com.nilavu.dao.PaymentDAO;
+import com.nilavu.daoImplements.OrderDAOImpl;
 import com.nilavu.daoImplements.PaymentDAOImpl;
 import com.nilavu.model.Payment;
 
@@ -17,7 +19,8 @@ public class PaymentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private PaymentDAO paymentDAO = new PaymentDAOImpl();
-
+    private OrderDAO orderDAO = new OrderDAOImpl();
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,6 +35,6 @@ public class PaymentServlet extends HttpServlet {
 
         paymentDAO.savePayment(payment);
 
-        response.sendRedirect("orderSuccess	");
+        response.sendRedirect(request.getContextPath() + "/orderSuccess");
     }
 }

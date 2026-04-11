@@ -1,34 +1,39 @@
 package com.nilavu.daoImplements;
 
+import com.nilavu.util.PasswordUtil;
+
 import java.sql.*;
 import java.util.*;
 import com.nilavu.dao.UserDAO;
 import com.nilavu.model.User;
 import com.nilavu.util.DBConnection;
+import com.nilavu.util.PasswordUtil;
 
 public class UserDAOImpl implements UserDAO {
 
     @Override
     public User login(String email, String password) {
         User user = null;
-        String sql = "SELECT * FROM users WHERE email=? AND password=?";
+        String sql = "SELECT * FROM users WHERE email=?";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, email);
-            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                user = new User();
-                user.setUserId(rs.getInt("user_id"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setRole(rs.getString("role"));
-                user.setPhone(rs.getString("phone"));
-                user.setShop_id(rs.getInt("shop_id"));
-                user.setAgent_id(rs.getInt("agent_id"));
+                String storedHash = rs.getString("password");
+                if(PasswordUtil.checkPassword(password, storedHash)) {
+                	user = new User();
+                    user.setUserId(rs.getInt("user_id"));
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setRole(rs.getString("role"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setShop_id(rs.getInt("shop_id"));
+                    user.setAgent_id(rs.getInt("agent_id"));
+                }
             }
 
         } catch (Exception e) {
@@ -45,7 +50,10 @@ public class UserDAOImpl implements UserDAO {
 
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
+            
+            String hashedPassword = PasswordUtil.hashPassword(user.getPassword());
+            ps.setString(3, hashedPassword);
+            
             ps.setString(4, "USER");
             ps.setString(5, user.getPhone());
 
