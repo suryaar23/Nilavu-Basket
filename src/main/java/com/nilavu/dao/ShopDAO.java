@@ -4,6 +4,8 @@ import com.nilavu.model.Shop;
 import java.util.List;
 
 public interface ShopDAO {
-	void addShop(Shop shop);
+	Boolean addShop(Shop shop);
 	List<Shop> getAllShops();
+	Shop getShopById(int id);
+	Boolean updateShop(Shop shop);
 }

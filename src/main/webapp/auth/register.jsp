@@ -21,6 +21,7 @@
         <form name="registerForm"
               action="<%=request.getContextPath()%>/register"
               method="post"
+              autocomplete="off"
               onsubmit="return validateRegister()">
 
             <label>Name</label>

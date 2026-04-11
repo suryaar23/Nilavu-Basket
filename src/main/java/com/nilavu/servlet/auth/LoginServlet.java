@@ -25,27 +25,34 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
+        
+        if (email == null || password == null || email.trim().isEmpty() || password.trim().isEmpty()) {
+               request.setAttribute("error", "Invalid credentials");
+               request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+               return;
+        }
+        
         User user = userDAO.login(email, password);
 
         if (user != null) {
-            HttpSession session = request.getSession();
+            
+            HttpSession session = request.getSession(true);
             session.setAttribute("loggedUser", user);
 
             if ("ADMIN".equalsIgnoreCase(user.getRole())) {
-                response.sendRedirect("admin/admin-dashboard");
+                response.sendRedirect(request.getContextPath() + "/admin/admin-dashboard");
             }
             
             else if("SHOP".equalsIgnoreCase(user.getRole())){
-                response.sendRedirect("shop/shop-dashboard");
+                response.sendRedirect(request.getContextPath() + "/shop/shop-dashboard");
             }
             
             else if("AGENT".equalsIgnoreCase(user.getRole())) {
-            	response.sendRedirect("agent/agent-dashboard");
+            	response.sendRedirect(request.getContextPath() + "/agent/agent-dashboard");
             }
             
             else {
-            	response.sendRedirect("user/home");
+            	response.sendRedirect(request.getContextPath() + "/user/home");
             }
             
             

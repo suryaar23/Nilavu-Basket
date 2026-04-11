@@ -10,8 +10,8 @@ import com.nilavu.util.DBConnection;
 
 public class ShopDAOImpl implements ShopDAO{
 	
-	public void addShop(Shop shop) {
-		String sql = "INSERT INTO shops(shop_name, owner_name, phone, address, status) VALUES(?, ?, ?, ?, ?)";
+	public Boolean addShop(Shop shop) {
+		String sql = "INSERT INTO shops(shop_name, owner_name, phone, address) VALUES(?, ?, ?, ?)";
 		
 		try(Connection con = DBConnection.getConnection();
 				PreparedStatement ps = con.prepareStatement(sql)){
@@ -20,13 +20,15 @@ public class ShopDAOImpl implements ShopDAO{
 					ps.setString(2, shop.getOwner_name());
 					ps.setString(4, shop.getPhone());
 					ps.setString(3, shop.getAddress());
-					ps.setString(5, shop.getStatus());
-					ps.executeUpdate();
+					
+					return ps.executeUpdate() > 0;
 		}
 		
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		return false;
 			
 	}
 	
@@ -56,5 +58,57 @@ public class ShopDAOImpl implements ShopDAO{
 		}
 		
 		return shops;
+	}
+	
+	public Shop getShopById(int id) {
+		
+		Shop s = null;
+		String sql = "SELECT * FROM shops WHERE shop_id = ?";
+		
+		try(Connection con = DBConnection.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql)){
+			
+			ps.setInt(1,id);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				s = new Shop();
+				s.setId(rs.getInt("shop_id"));
+				s.setName(rs.getString("shop_name"));
+				s.setOwner_name(rs.getString("owner_name"));
+				s.setPhone(rs.getString("phone"));
+				s.setAddress(rs.getString("address"));
+				s.setStatus(rs.getString("status"));
+			}
+		}
+		
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return s;
+	}
+	
+	public Boolean updateShop(Shop shop) {
+			String sql = "UPDATE shops SET name=?, owner_name=?, phone=?, address=? WHERE shop_id=?";
+			
+			try(Connection con = DBConnection.getConnection();
+					PreparedStatement ps = con.prepareStatement(sql)){
+				
+				 ps.setString(1, shop.getName());
+			     ps.setString(2, shop.getOwner_name());
+			     ps.setString(3, shop.getPhone());
+			     ps.setString(4, shop.getAddress());
+			     ps.setInt(5, shop.getId());
+
+			     return ps.executeUpdate() > 0;
+			}
+			
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return false;
 	}
 }

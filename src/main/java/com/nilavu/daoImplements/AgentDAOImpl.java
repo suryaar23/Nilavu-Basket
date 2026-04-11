@@ -86,5 +86,78 @@ public class AgentDAOImpl implements AgentDAO{
 			
 			return list;
 		}
+
+		@Override
+		public Boolean updateAgent(Agent agent) {
+			
+			String sql = "UPDATE agents SET name=?, phone=? WHERE agent_id=?";
+			
+			try(Connection con = DBConnection.getConnection();
+					PreparedStatement ps = con.prepareStatement(sql)){
+				
+				ps.setString(1, agent.getName());
+				ps.setString(2, agent.getPhone());
+				ps.setInt(3, agent.getAgent_id());
+				
+				return ps.executeUpdate() > 0;
+			}
+			
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return false;
+			
+		}
+
+		@Override
+		public Boolean addAgent(Agent agent) {
+			String sql = "INSERT INTO agents(name, phone) VALUES(?,?)";
+			
+			try(Connection con = DBConnection.getConnection();
+					PreparedStatement ps = con.prepareStatement(sql)){
+				
+				ps.setString(1, agent.getName());
+				ps.setString(2, agent.getPhone());
+				
+				return ps.executeUpdate() > 0;
+			}
+			
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return false;
+		}
+
+		@Override
+		public Agent getAgentById(int id) {
+			
+			Agent a = null;
+			String sql = "SELECT * FROM agents WHERE agent_id = ?";
+			
+			try(Connection con = DBConnection.getConnection();
+					PreparedStatement ps = con.prepareStatement(sql)){
+				
+				ps.setInt(1, id);
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					
+					a = new Agent();
+					
+					a.setAgent_id(rs.getInt("agent_id"));
+					a.setName(rs.getString("name"));
+					a.setPhone(rs.getString("phone"));
+					a.setStatus(rs.getString("status"));
+				}
+			}
+			
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			return a;
+		}
 		
 }

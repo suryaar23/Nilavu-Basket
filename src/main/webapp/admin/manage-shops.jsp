@@ -51,7 +51,7 @@
                 <%-- Editing --%>
                 
                 <td>
-                    <a class="btn" href="<%=request.getContextPath()%>/admin/editShops?id=<%=s.getId()%>">
+                    <a class="btn" href="<%=request.getContextPath()%>/admin/edit-shop?id=<%=s.getId()%>">
                         Edit
                     </a>
                 </td>

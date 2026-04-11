@@ -14,7 +14,13 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
+
     <h2 style="text-align:center;">Delivery Agents</h2>
+
+    <!--Add Agent Button -->
+    <div style="text-align:right; margin-bottom:15px;">
+        <a class="btn" href="<%=request.getContextPath()%>/admin/add-agent">Add Agent</a>
+    </div>
 
     <div class="form-box" style="max-width:900px;">
         <table>
@@ -39,10 +45,11 @@
                 <td><%= a.getPhone() %></td>
                 <td><%= a.getStatus() %></td>
 
-                <!-- ADMIN CONTROL -->
+                <!--EDIT-->
                 <td>
-                    <a class="btn" href="<%=request.getContextPath()%>/admin/delete-agent?id=<%=a.getAgent_id()%>">
-                        Remove
+                    <a class="btn"
+                       href="<%=request.getContextPath()%>/admin/edit-agent?id=<%=a.getAgent_id()%>">
+                        Edit
                     </a>
                 </td>
             </tr>
@@ -64,7 +71,9 @@
     </div>
 
     <div style="text-align:center; margin-top:15px;">
-        <a href="<%=request.getContextPath()%>/admin/admin-dashboard">Back to Dashboard</a>
+        <a class="btn" href="<%=request.getContextPath()%>/admin/admin-dashboard">
+            Back to Dashboard
+        </a>
     </div>
 
 </div>
