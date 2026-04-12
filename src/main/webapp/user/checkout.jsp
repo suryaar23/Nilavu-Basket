@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, com.nilavu.model.CartItem" %>
 
+<%
+    String lang = (String) session.getAttribute("lang");
+    if (lang == null) lang = "en";
+
+    java.util.Locale locale = new java.util.Locale(lang);
+
+    java.util.ResourceBundle bundle =
+        java.util.ResourceBundle.getBundle("i18n.messages", locale);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +25,7 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2 style="text-align:center;">Order Summary</h2>
+    <h2 style="text-align:center;"><%= bundle.getString("order_summary") %></h2>
 
     <%
         List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
@@ -24,8 +34,8 @@
     <div class="form-box" style="max-width:600px;">
         <table>
             <tr>
-                <th>Product Name</th>
-                <th>Quantity</th>
+                <th><%= bundle.getString("product_name") %></th>
+                <th><%= bundle.getString("quantity") %></th>
             </tr>
 
         <%
@@ -41,7 +51,7 @@
             } else {
         %>
             <tr>
-                <td colspan="2" style="text-align:center;">No items in cart.</td>
+                <td colspan="2" style="text-align:center;"><%= bundle.getString("no_items_cart") %>.</td>
             </tr>
         <%
             }
@@ -51,13 +61,13 @@
 
         <div style="text-align:center; margin-top:20px;">
             <form action="<%=request.getContextPath()%>/checkout" method="post">
-                <button type="submit" class="btn">Confirm & Place Order</button>
+                <button type="submit" class="btn"><%= bundle.getString("confirm_place_order") %></button>
             </form>
         </div>
 
         <div style="text-align:center; margin-top:10px;">
             <a href="<%=request.getContextPath()%>/viewCart">
-                <button type="button" class="btn">Back to Cart</button>
+                <button type="button" class="btn"><%= bundle.getString("back_to_cart") %></button>
             </a>
         </div>
     </div>

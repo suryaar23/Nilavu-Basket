@@ -1,6 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, com.nilavu.model.Product, com.nilavu.model.Category" %>
 
+<%
+    String lang = (String) session.getAttribute("lang");
+    if (lang == null) lang = "en";
+
+    java.util.Locale locale = new java.util.Locale(lang);
+
+    java.util.ResourceBundle bundle =
+        java.util.ResourceBundle.getBundle("i18n.messages", locale);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,15 +35,15 @@
         <%
             if (keyword != null && !keyword.isEmpty()) {
         %>
-            Search Results
+            <%= bundle.getString("search_results") %>
         <%
             } else if (shopId != null && !shopId.isEmpty()) {	
         %>
-            Shop Products
+            <%= bundle.getString("shop_products") %>
         <%
             } else {
         %>
-            All Products
+            <%= bundle.getString("all_products") %>
         <%
             }
         %>
@@ -45,22 +55,22 @@
         if ("limitreached".equals(error)) {
     %>
         <div style="color:red; text-align:center; font-weight:bold; margin:15px 0;">
-            You cannot add more of this item. Stock limit reached.
+            <%= bundle.getString("stock_limit") %>
         </div>
     <%
         }
     %>
 
-    <!-- 🔍 SEARCH + FILTER (GLOBAL ONLY) -->
+    <!--  SEARCH-->
     <form method="get" action="<%=request.getContextPath()%>/products"
           style="display:flex; gap:10px; justify-content:center; margin-bottom:20px;">
 
         <input type="text" name="keyword"
-               placeholder="Search products..."
+               placeholder="<%= bundle.getString("search_products") %>"
                value="<%= request.getParameter("keyword") != null ? request.getParameter("keyword") : "" %>">
 
         <select name="categoryId">
-            <option value="">All Categories</option>
+            <option value=""><%= bundle.getString("all_categories") %></option>
 
             <%
                 List<Category> categories = (List<Category>) request.getAttribute("categories");
@@ -83,7 +93,7 @@
             %>
         </select>
 
-        <button class="btn" type="submit">Search</button>
+        <button class="btn" type="submit"><%= bundle.getString("search") %></button>
     </form>
 
     <!-- 🛍 PRODUCTS GRID -->
@@ -118,28 +128,23 @@
 
             <!-- STOCK -->
             <p style="margin-top:5px; color:<%= p.getStock() > 5 ? "green" : "orange" %>;">
-                Stock: <b><%= p.getStock() %></b>
-            </p>
-
-            <!-- SHOP  -->
-            <p style="margin-top:5px; font-size:13px;">
-                Shop ID: <%= p.getShop_id() %>
+                <%= bundle.getString("stock") %>: <b><%= p.getStock() %></b>
             </p>
 
             <!-- ACTION -->
              <% if (p.getStock() > 0) { %>
                 <a class="btn"
    				   href="<%=request.getContextPath()%>/addToCart?productId=<%=p.getProductId()%>&keyword=<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>&categoryId=<%=request.getParameter("categoryId") != null ? request.getParameter("categoryId") : ""%>&shopId=<%=request.getParameter("shopId") != null ? request.getParameter("shopId") : ""%>">
-    				Add to Cart
+    				<%= bundle.getString("add_to_cart") %>
 				</a>
             <% } else { %>
 
                 <p style="color:red; font-weight:bold; margin-top:8px;">
-                    Out of Stock
+                    <%= bundle.getString("out_of_stock") %>
                 </p>
 
                 <button class="btn" disabled>
-                    Unavailable
+                    <%= bundle.getString("unavailable") %>
                 </button>
 
             <% } %>
@@ -152,7 +157,7 @@
     %>
 
         <p style="text-align:center; margin-top:20px;">
-            No products available.
+            <%= bundle.getString("no_products") %>
         </p>
 
     <%

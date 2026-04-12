@@ -2,6 +2,16 @@
 <%@ page import="java.util.*, com.nilavu.model.CartItem" %>
 
 <%
+    String lang = (String) session.getAttribute("lang");
+    if (lang == null) lang = "en";
+
+    java.util.Locale locale = new java.util.Locale(lang);
+
+    java.util.ResourceBundle bundle =
+        java.util.ResourceBundle.getBundle("i18n.messages", locale);
+%>
+
+<%
     if (session == null || session.getAttribute("loggedUser") == null) {
         response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
         return;
@@ -22,15 +32,15 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2 style="text-align:center;">My Cart</h2>
+    <h2 style="text-align:center;"><%= bundle.getString("my_cart") %></h2>
 
     <table>
         <tr>
-            <th>Product</th>
-            <th>Price (₹)</th>
-            <th>Quantity</th>
-            <th>Total (₹)</th>
-            <th>Action</th>
+            <th><%= bundle.getString("product") %></th>
+            <th><%= bundle.getString("price") %>(₹)</th>
+            <th><%= bundle.getString("quantity") %></th>
+            <th><%= bundle.getString("total") %> (₹)</th>
+            <th><%= bundle.getString("action") %></th>
         </tr>
 
     <%
@@ -49,9 +59,9 @@
             <td>₹ <%= itemTotal %></td>
             <td>
                 <a class="btn btn-danger"
-                   onclick="return confirmDelete('Remove this item from cart?')"
+                   onclick="return confirmDelete('<%= bundle.getString("confirm_remove") %>')"
                    href="<%=request.getContextPath()%>/removeFromCart?cartItemId=<%=ci.getCartItemId()%>">
-                   Remove
+                   <%= bundle.getString("remove") %>
                 </a>
             </td>
         </tr>
@@ -59,14 +69,14 @@
             }
     %>
         <tr>
-            <td colspan="3" style="text-align:right;"><b>Grand Total</b></td>
+            <td colspan="3" style="text-align:right;"><b><%= bundle.getString("grand_total") %>:</b></td>
             <td colspan="2"><b>₹ <%= grandTotal %></b></td>
         </tr>
     <%
         } else {
     %>
         <tr>
-            <td colspan="5" style="text-align:center;">Your cart is empty.</td>
+            <td colspan="5" style="text-align:center;"><%= bundle.getString("cart_empty") %></td>
         </tr>
     <%
         }
@@ -77,7 +87,7 @@
     <% if (cartItems != null && !cartItems.isEmpty()) { %>
     <div style="text-align:right; margin-top:20px;">
         <a href="<%=request.getContextPath()%>/checkout">
-            <button class="btn" type="button">Proceed to Checkout</button>
+            <button class="btn" type="button"><%= bundle.getString("proceed_checkout") %></button>
         </a>
     </div>
 	<% } %>

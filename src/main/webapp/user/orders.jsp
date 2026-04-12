@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, com.nilavu.model.Order" %>
 
+<%
+    String lang = (String) session.getAttribute("lang");
+    if (lang == null) lang = "en";
+
+    java.util.Locale locale = new java.util.Locale(lang);
+
+    java.util.ResourceBundle bundle =
+        java.util.ResourceBundle.getBundle("i18n.messages", locale);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,17 +25,17 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2 style="text-align:center;">Order History</h2>
+    <h2 style="text-align:center;"><%= bundle.getString("order_history") %></h2>
 
     <div class="form-box" style="max-width:900px; margin:auto;">
 
         <table>
             <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Total Amount (₹)</th>
-                <th>Action</th> <!-- ✅ added -->
+                <th><%= bundle.getString("order_id") %></th>
+				<th><%= bundle.getString("date") %></th>
+				<th><%= bundle.getString("status") %></th>
+				<th><%= bundle.getString("total_amount") %></th>
+                <th><%= bundle.getString("action") %></th> 
             </tr>
 
         <%
@@ -41,11 +51,11 @@
                 <td><%= o.getStatus() %></td>
                 <td>₹ <%= o.getTotalAmount() %></td>
 
-                <!-- ✅ FIXED -->
+                
                 <td style="text-align:center;">
                     <a class="btn"
                        href="<%=request.getContextPath()%>/common/order-details?orderId=<%=o.getOrderId()%>">
-                        View Details
+                        <%= bundle.getString("view_details") %>
                     </a>
                 </td>
             </tr>
@@ -56,8 +66,8 @@
         %>
 
             <tr>
-                <td colspan="5" style="text-align:center;"> <!-- ✅ fixed -->
-                    No orders found.
+                <td colspan="5" style="text-align:center;">
+                    <%= bundle.getString("no_orders") %>.
                 </td>
             </tr>
 

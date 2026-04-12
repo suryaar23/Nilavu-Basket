@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="java.util.*, com.nilavu.model.Shop" %>
 
+<%
+    String lang = (String) session.getAttribute("lang");
+    if (lang == null) lang = "en";
+
+    java.util.Locale locale = new java.util.Locale(lang);
+
+    java.util.ResourceBundle bundle =
+        java.util.ResourceBundle.getBundle("i18n.messages", locale);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +25,7 @@
 
 <div class="container">
 
-    <h2 style="text-align:center;">Browse Shops</h2>
+    <h2 style="text-align:center;"><%= bundle.getString("browse_shops") %></h2>
 
     <div class="card-grid" style="margin-top:20px;">
 
@@ -31,7 +41,7 @@
 
             <a class="btn"
                href="<%=request.getContextPath()%>/products?shopId=<%=s.getId()%>">
-                View Products
+                <%= bundle.getString("view_products") %>
             </a>
         </div>
 
@@ -40,7 +50,7 @@
         } else {
     %>
 
-        <p style="text-align:center;">No shops available</p>
+        <p style="text-align:center;"><%= bundle.getString("no_shops") %></p>
 
     <%
         }
