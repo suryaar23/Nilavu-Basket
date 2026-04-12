@@ -11,7 +11,7 @@ public interface ProductDAO {
     void updateProduct(Product p);
     void deleteProduct(int id);
     void addStock(int productId, int quantity);
-    boolean reduceStock(int productId, int qty); // ✅ NEW
+    boolean reduceStock(int productId, int qty);
 	int getStockByProductId(int productId);
 	Product getProductById(int productId);
 	List<Product> searchProducts(String keyword, String categoryId);

@@ -11,21 +11,33 @@ public class Order {
     private String userName;
     private int shop_id;
     private int agent_id;
+    private int addressId;
+    private String street;
+    private String city;
+    private String state;
+    private String pincode;
 
     // getters and setters
     
-	public Order(int orderId, int userId, LocalDateTime orderDate, String status, double totalAmount, String userName,int shop_id, int agent_id) {
+	public Order() {
+		super();
+	}
+	public Order(int orderId, int userId, LocalDateTime orderDate, String status, double totalAmount, String userName,
+			int shop_id, int agent_id, int addressId, String street, String city, String state, String pincode) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
 		this.orderDate = orderDate;
 		this.status = status;
 		this.totalAmount = totalAmount;
+		this.userName = userName;
 		this.shop_id = shop_id;
 		this.agent_id = agent_id;
-	}
-	public Order() {
-		super();
+		this.addressId = addressId;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
 	}
 	public int getOrderId() {
 		return orderId;
@@ -76,11 +88,41 @@ public class Order {
 	public void setAgent_id(int agent_id) {
 		this.agent_id = agent_id;
 	}
+	public int getAddressId() {
+		return addressId;
+	}
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getPincode() {
+		return pincode;
+	}
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", userId=" + userId + ", orderDate=" + orderDate + ", status=" + status
 				+ ", totalAmount=" + totalAmount + ", userName=" + userName + ", shop_id=" + shop_id + ", agent_id="
-				+ agent_id + "]";
+				+ agent_id + ", addressId=" + addressId + ", street=" + street + ", city=" + city + ", state=" + state
+				+ ", pincode=" + pincode + "]";
 	}
-	
 }

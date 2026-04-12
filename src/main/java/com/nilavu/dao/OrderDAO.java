@@ -10,8 +10,8 @@ import com.nilavu.util.DBConnection;
 
 public interface OrderDAO {
 
-    int createOrder(int userId, double totalAmount,int shop_id);
-
+	int createOrder(int userId, double totalAmount, int shop_id,int addressId,String street, String city, String state, String pincode);
+	
     List<Order> getOrdersByUser(int userId);
 
     List<Order> getAllOrders();

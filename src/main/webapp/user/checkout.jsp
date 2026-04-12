@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, com.nilavu.model.CartItem" %>
+<%@ page import="java.util.*, com.nilavu.model.CartItem, com.nilavu.model.Address" %>
 
 <%
     String lang = (String) session.getAttribute("lang");
     if (lang == null) lang = "en";
 
     java.util.Locale locale = new java.util.Locale(lang);
-
-    java.util.ResourceBundle bundle =
-        java.util.ResourceBundle.getBundle("i18n.messages", locale);
+    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("i18n.messages", locale);
 %>
 
 <!DOCTYPE html>
@@ -51,29 +49,59 @@
             } else {
         %>
             <tr>
-                <td colspan="2" style="text-align:center;"><%= bundle.getString("no_items_cart") %>.</td>
+                <td colspan="2" style="text-align:center;">
+                    <%= bundle.getString("no_items_cart") %>
+                </td>
             </tr>
         <%
             }
         %>
-
         </table>
 
         <div style="text-align:center; margin-top:20px;">
             <form action="<%=request.getContextPath()%>/checkout" method="post">
-                <button type="submit" class="btn"><%= bundle.getString("confirm_place_order") %></button>
+
+                <!--ADDRESS DROPDOWN -->
+                <label><%= bundle.getString("delivery_address") %></label>
+
+                <select name="addressId" required style="width:100%; margin:10px 0; padding:8px;">
+                <%
+                    List<Address> addresses = (List<Address>) request.getAttribute("address");
+
+                    if (addresses != null && !addresses.isEmpty()) {
+                        for (Address a : addresses) {
+                %>
+                    <option value="<%=a.getAddressId()%>">
+                        <%= a.getStreet() %>, <%= a.getCity() %> - <%= a.getPincode() %>
+                    </option>
+                <%
+                        }
+                    } else {
+                %>
+                    <option disabled>No address available</option>
+                <%
+                    }
+                %>
+                </select>
+
+                <!-- ✅ SUBMIT -->
+                <button type="submit" class="btn">
+                    <%= bundle.getString("confirm_place_order") %>
+                </button>
+
             </form>
         </div>
 
         <div style="text-align:center; margin-top:10px;">
             <a href="<%=request.getContextPath()%>/viewCart">
-                <button type="button" class="btn"><%= bundle.getString("back_to_cart") %></button>
+                <button type="button" class="btn">
+                    <%= bundle.getString("back_to_cart") %>
+                </button>
             </a>
         </div>
+
     </div>
 </div>
 
 </body>
 </html>
-
-

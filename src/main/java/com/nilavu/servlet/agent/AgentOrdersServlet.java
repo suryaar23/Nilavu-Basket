@@ -38,6 +38,22 @@ public class AgentOrdersServlet extends HttpServlet{
 			
 			String filter = request.getParameter("filter");
 			
+			String heading = "Orders";
+			
+			if("active".equals(filter)) {
+				heading = "Active Orders";
+			}
+			
+			else if("completed".equals(filter)) {
+				heading = "Delivery History";
+			}
+			
+			else {
+				heading = "Assigned Orders";
+			}
+			
+			request.setAttribute("heading", heading);
+			
 			List<Order> o;
 			
 			if("completed".equals(filter)) {

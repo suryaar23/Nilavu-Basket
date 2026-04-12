@@ -10,18 +10,19 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import com.nilavu.dao.AddressDAO;
 import com.nilavu.dao.CartDAO;
 import com.nilavu.dao.CartItemDAO;
 import com.nilavu.dao.OrderDAO;
 import com.nilavu.dao.OrderItemDAO;
 import com.nilavu.dao.ProductDAO;
-
+import com.nilavu.daoImplements.AddressDAOImpl;
 import com.nilavu.daoImplements.CartDAOImpl;
 import com.nilavu.daoImplements.CartItemDAOImpl;
 import com.nilavu.daoImplements.OrderDAOImpl;
 import com.nilavu.daoImplements.OrderItemDAOImpl;
 import com.nilavu.daoImplements.ProductDAOImpl;
-
+import com.nilavu.model.Address;
 import com.nilavu.model.CartItem;
 import com.nilavu.model.User;
 
@@ -35,7 +36,7 @@ public class CheckoutServlet extends HttpServlet {
     private OrderDAO orderDAO = new OrderDAOImpl();
     private OrderItemDAO orderItemDAO = new OrderItemDAOImpl();
     private ProductDAO productDAO = new ProductDAOImpl();
-
+    private AddressDAO addressDAO = new AddressDAOImpl();
 
     // SHOW CHECKOUT PAGE
     
@@ -50,14 +51,19 @@ public class CheckoutServlet extends HttpServlet {
             response.sendRedirect("auth/login.jsp");
             return;
         }
+        
+        List<Address> address = addressDAO.getAddressByUser(user.getUserId());
+        
+        request.setAttribute("address", address);
 
         int cartId = cartDAO.getOrCreateCart(user.getUserId());
         List<CartItem> cartItems = cartItemDAO.getCartItems(cartId);
 
         if (cartItems == null || cartItems.isEmpty()) {
-            response.sendRedirect("viewCart");
+            response.sendRedirect(request.getContextPath() + "/viewCart");
             return;
         }
+        
 
         // send cart items to JSP
         request.setAttribute("cartItems", cartItems);
@@ -88,7 +94,7 @@ public class CheckoutServlet extends HttpServlet {
         List<CartItem> cartItems = cartItemDAO.getCartItems(cartId);
 
         if (cartItems == null || cartItems.isEmpty()) {
-            response.sendRedirect("viewCart");
+            response.sendRedirect(request.getContextPath() + "/viewCart");
             return;
         }
 
@@ -100,9 +106,12 @@ public class CheckoutServlet extends HttpServlet {
         
         int shopId = productDAO.getProductById(cartItems.get(0).getProductId()).getShop_id();
         
-       
+        int addressId = Integer.parseInt(request.getParameter("addressId"));
+        
+        Address a = addressDAO.getAddressById(addressId);
+        
         // 2. Create order
-        int orderId = orderDAO.createOrder(user.getUserId(), totalAmount,shopId);
+        int orderId = orderDAO.createOrder(user.getUserId(), totalAmount, shopId, addressId, a.getStreet(), a.getCity(), a.getState(), a.getPincode());
         
         if (orderId > 0) {
 
@@ -113,7 +122,7 @@ public class CheckoutServlet extends HttpServlet {
             for (CartItem item : cartItems) {
                 productDAO.reduceStock(item.getProductId(), item.getQuantity());
             }
-
+            
             // 5. Clear cart
             cartItemDAO.clearCart(cartId);
 
@@ -124,10 +133,10 @@ public class CheckoutServlet extends HttpServlet {
             session.setAttribute("lastOrderId", orderId);
 
             // redirect to payment
-            response.sendRedirect("user/payment.jsp");
+            response.sendRedirect(request.getContextPath() + "/user/payment.jsp");
 
         } else {
-            response.sendRedirect("viewCart");
+            response.sendRedirect(request.getContextPath() + "/viewCart");
         }
     }
 }

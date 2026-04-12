@@ -7,8 +7,7 @@
 
     java.util.Locale locale = new java.util.Locale(lang);
 
-    java.util.ResourceBundle bundle =
-        java.util.ResourceBundle.getBundle("i18n.messages", locale);
+    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("i18n.messages", locale);
 %>
 
 <nav class="navbar">
@@ -41,30 +40,21 @@
             <a href="<%= homeLink %>">🛒 Nilavu Basket</a>
         </div>
 
-        <!-- CENTER: LANGUAGE SWITCH -->
-        <div class="navbar-lang" style="margin-left:auto;">
-            <form action="<%=request.getContextPath()%>/change-language"
-                  method="get"
-                  style="display:inline;">
+		<% if (user == null || "USER".equalsIgnoreCase(user.getRole())) { %>
+    		<div class="navbar-lang" style="margin-left:auto;">
+        		<form action="<%=request.getContextPath()%>/change-language"
+              			method="get" style="display:inline;">
 
-                <select name="lang" onchange="this.form.submit()">
-
-                    <option value="en" <%= "en".equals(lang) ? "selected" : "" %>>
-                        English
-                    </option>
-
-                    <option value="ml" <%= "ml".equals(lang) ? "selected" : "" %>>
-                        Malayalam
-                    </option>
-
-                    <option value="ta" <%= "ta".equals(lang) ? "selected" : "" %>>
-                        Tamil
-                    </option>
-
-                </select>
-            </form>
-        </div>
-
+            		<select name="lang" onchange="this.form.submit()">
+                		<option value="en" <%= "en".equals(lang) ? "selected" : "" %>>English</option>
+                		<option value="ml" <%= "ml".equals(lang) ? "selected" : "" %>>Malayalam</option>
+                		<option value="ta" <%= "ta".equals(lang) ? "selected" : "" %>>Tamil</option>
+            		</select>
+            	
+        		</form>
+    		</div>
+		<% } %>
+		
         <!-- RIGHT: NAV LINKS -->
         <div class="navbar-links">
 

@@ -1,6 +1,9 @@
 package com.nilavu.daoImplements;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nilavu.dao.AddressDAO;
 import com.nilavu.model.Address;
 import com.nilavu.util.DBConnection;
@@ -8,8 +11,10 @@ import com.nilavu.util.DBConnection;
 public class AddressDAOImpl implements AddressDAO {
 
     @Override
-    public Address getAddressByUser(int userId) {
-        Address address = null;
+    public List<Address> getAddressByUser(int userId) {
+    	
+        List<Address> list = new ArrayList<>();
+        
         String sql = "SELECT * FROM address WHERE user_id=?";
 
         try (Connection con = DBConnection.getConnection();
@@ -18,54 +23,70 @@ public class AddressDAOImpl implements AddressDAO {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                address = new Address();
-                address.setAddressId(rs.getInt("address_id"));
-                address.setUserId(rs.getInt("user_id"));
-                address.setStreet(rs.getString("street"));
-                address.setCity(rs.getString("city"));
-                address.setState(rs.getString("state"));
-                address.setPincode(rs.getString("pincode"));
+            while (rs.next()) {
+                Address a = new Address();
+                a.setAddressId(rs.getInt("address_id"));
+                a.setUserId(rs.getInt("user_id"));
+                a.setStreet(rs.getString("street"));
+                a.setCity(rs.getString("city"));
+                a.setState(rs.getString("state"));
+                a.setPincode(rs.getString("pincode"));
+                
+                list.add(a);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return address;
+        return list;
     }
 
     @Override
-    public void saveOrUpdate(Address address) {
-        String checkSql = "SELECT address_id FROM address WHERE user_id=?";
-        String insertSql = "INSERT INTO address(user_id,street,city,state,pincode) VALUES(?,?,?,?,?)";
-        String updateSql = "UPDATE address SET street=?,city=?,state=?,pincode=? WHERE user_id=?";
+    public void addAddress(Address address) {
 
-        try (Connection con = DBConnection.getConnection()) {
+        String sql = "INSERT INTO address(user_id, street, city, state, pincode) VALUES (?, ?, ?, ?, ?)";
 
-            PreparedStatement ps = con.prepareStatement(checkSql);
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setInt(1, address.getUserId());
-            ResultSet rs = ps.executeQuery();
+            ps.setString(2, address.getStreet());
+            ps.setString(3, address.getCity());
+            ps.setString(4, address.getState());
+            ps.setString(5, address.getPincode());
 
-            if (rs.next()) {
-                PreparedStatement ps2 = con.prepareStatement(updateSql);
-                ps2.setString(1, address.getStreet());
-                ps2.setString(2, address.getCity());
-                ps2.setString(3, address.getState());
-                ps2.setString(4, address.getPincode());
-                ps2.setInt(5, address.getUserId());
-                ps2.executeUpdate();
-            } else {
-                PreparedStatement ps2 = con.prepareStatement(insertSql);
-                ps2.setInt(1, address.getUserId());
-                ps2.setString(2, address.getStreet());
-                ps2.setString(3, address.getCity());
-                ps2.setString(4, address.getState());
-                ps2.setString(5, address.getPincode());
-                ps2.executeUpdate();
-            }
+            ps.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public Address getAddressById(int addressId) {
+    	Address a = null;
+    	String sql = "SELECT * FROM address WHERE address_id = ?";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql)){
+    		
+    		ps.setInt(1, addressId);
+    		ResultSet rs = ps.executeQuery();
+    		
+    		while(rs.next()) {
+    			
+    			a = new Address();
+    			a.setAddressId(rs.getInt("address_id"));
+    			a.setUserId(rs.getInt("user_id"));
+    			a.setStreet(rs.getString("street"));
+    			a.setCity(rs.getString("city"));
+    			a.setState(rs.getString("state"));
+    			a.setPincode(rs.getString("pincode"));
+    		}
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return a;
     }
 }

@@ -11,23 +11,29 @@ import com.nilavu.util.DBConnection;
 public class OrderDAOImpl implements OrderDAO {
 
     @Override
-    public int createOrder(int userId, double totalAmount, int shop_id) {
+    public int createOrder(int userId, double totalAmount, int shop_id, int addressId, String street, String city, String state, String pincode) {
         int orderId = -1;
-        String sql = "INSERT INTO orders(user_id, order_date, total_amount, shop_id) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO orders(user_id, total_amount, shop_id, address_id, street, city, state, pincode) VALUES(?,?,?,?,?,?,?,?)";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, userId);
-            ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setDouble(3, totalAmount);
-            ps.setInt(4, shop_id);
+            ps.setDouble(2, totalAmount);
+            ps.setInt(3, shop_id);
+            ps.setInt(4, addressId);
+            ps.setString(5, street);
+            ps.setString(6, city);
+            ps.setString(7, state);
+            ps.setString(8, pincode);
 
-            ps.executeUpdate();
+            int rows = ps.executeUpdate();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                orderId = rs.getInt(1);
+            if (rows > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    orderId = rs.getInt(1);
+                }
             }
 
         } catch (Exception e) {
@@ -203,7 +209,7 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		List<Order> list = new ArrayList<>();
 		
-		String sql = "SELECT * FROM orders WHERE agent_id = ?";
+		String sql = "SELECT * FROM orders WHERE agent_id = ? AND status = ASSIGNED";
 		
 		try(Connection con = DBConnection.getConnection();
 				PreparedStatement ps = con.prepareStatement(sql)){
@@ -221,6 +227,10 @@ public class OrderDAOImpl implements OrderDAO {
 				o.setTotalAmount(rs.getDouble("total_amount"));
 				o.setShop_id(rs.getInt("shop_id"));
 				o.setAgent_id(rs.getInt("agent_id"));
+				o.setStreet(rs.getString("street"));
+				o.setCity(rs.getString("city"));
+				o.setState(rs.getString("state"));
+				o.setPincode(rs.getString("pincode"));
 				
 				list.add(o);
 			}
@@ -235,7 +245,7 @@ public class OrderDAOImpl implements OrderDAO {
     
     public 	int getAgentIdByOrderId(int orderId) {
     	
-    	int agentId = -1;    //TODO: replace with proper agent_id
+    	int agentId = -1;    
     	
     	String sql = "SELECT agent_id FROM orders WHERE order_id = ?";
     	
@@ -361,6 +371,11 @@ public class OrderDAOImpl implements OrderDAO {
     			o.setTotalAmount(rs.getDouble("total_amount"));
     			o.setShop_id(rs.getInt("shop_id"));
     			o.setAgent_id(rs.getInt("agent_id"));
+    			o.setAgent_id(rs.getInt("agent_id"));
+				o.setStreet(rs.getString("street"));
+				o.setCity(rs.getString("city"));
+				o.setState(rs.getString("state"));
+				o.setPincode(rs.getString("pincode"));
     			
     			list.add(o);
     		}
@@ -400,6 +415,10 @@ public class OrderDAOImpl implements OrderDAO {
     			o.setTotalAmount(rs.getDouble("total_amount"));
     			o.setShop_id(rs.getInt("shop_id"));
     			o.setAgent_id(rs.getInt("agent_id"));
+				o.setStreet(rs.getString("street"));
+				o.setCity(rs.getString("city"));
+				o.setState(rs.getString("state"));
+				o.setPincode(rs.getString("pincode"));
     			
     			list.add(o);
     		}

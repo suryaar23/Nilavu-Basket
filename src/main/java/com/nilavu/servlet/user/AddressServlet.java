@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.nilavu.dao.AddressDAO;
 import com.nilavu.daoImplements.AddressDAOImpl;
@@ -32,7 +33,7 @@ public class AddressServlet extends HttpServlet {
             return;
         }
 
-        Address address = addressDAO.getAddressByUser(user.getUserId());
+        List<Address> address = addressDAO.getAddressByUser(user.getUserId());
         request.setAttribute("address", address);
         request.getRequestDispatcher("user/address.jsp").forward(request, response);
     }
@@ -61,8 +62,8 @@ public class AddressServlet extends HttpServlet {
         address.setState(state);
         address.setPincode(pincode);
 
-        addressDAO.saveOrUpdate(address);
+        addressDAO.addAddress(address);
 
-        response.sendRedirect("address");
+        response.sendRedirect(request.getContextPath() + "/address");
     }
 }

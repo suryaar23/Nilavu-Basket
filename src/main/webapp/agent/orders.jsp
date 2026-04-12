@@ -15,9 +15,9 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2 style="text-align:center;">Assigned Orders</h2>
+    <h2 style="text-align:center;"> <%= request.getAttribute("heading") %></h2>
 
-    <div class="form-box" style="max-width:900px; margin:auto;">
+    <div class="form-box" style="max-width:1000px; margin:auto;">
 
         <table>
             <tr>
@@ -25,6 +25,7 @@
                 <th>Date</th>
                 <th>Status</th>
                 <th>Total Amount (₹)</th>
+                <th>Delivery Address</th> 
                 <th>Action</th>
             </tr>
 
@@ -40,6 +41,14 @@
                 <td><%= o.getOrderDate() %></td>
                 <td><%= o.getStatus() %></td>
                 <td>₹ <%= o.getTotalAmount() %></td>
+
+                <!--  DELIVERY ADDRESS -->
+                <td>
+                    <%= o.getStreet() %>, 
+                    <%= o.getCity() %>, 
+                    <%= o.getState() %> - 
+                    <%= o.getPincode() %>
+                </td>
 
                 <td style="text-align:center;">
 
@@ -59,7 +68,7 @@
                         <span style="color:gray;">Completed</span>
                     <% } %>
 
-                    <br>
+                    <br><br>
 
                     <a class="btn"
                        href="<%=request.getContextPath()%>/common/order-details?orderId=<%=o.getOrderId()%>">
@@ -75,7 +84,7 @@
         %>
 
             <tr>
-                <td colspan="5" style="text-align:center;">
+                <td colspan="6" style="text-align:center;">
                     No orders assigned
                 </td>
             </tr>
