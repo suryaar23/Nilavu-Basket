@@ -189,7 +189,7 @@ public class OrderDAOImpl implements OrderDAO {
     
     public void assignAgent(int orderId, int agent_id) {
     	
-    	String sql = "UPDATE orders SET agent_id = ? , status = 'ASSIGNED' WHERE order_id = ? ";
+    	String sql = "UPDATE orders SET agent_id = ?  WHERE order_id = ? ";
     	
     	try(Connection con = DBConnection.getConnection();
     			PreparedStatement ps = con.prepareStatement(sql)){
@@ -209,7 +209,7 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		List<Order> list = new ArrayList<>();
 		
-		String sql = "SELECT * FROM orders WHERE agent_id = ? AND status = ASSIGNED";
+		String sql = "SELECT * FROM orders WHERE agent_id = ? AND status = 'ASSIGNED'";
 		
 		try(Connection con = DBConnection.getConnection();
 				PreparedStatement ps = con.prepareStatement(sql)){
@@ -429,6 +429,27 @@ public class OrderDAOImpl implements OrderDAO {
     	}
     	
     	return list;
+    }
+    
+    public int getOldestPendingOrder() {
+    	int orderId = -1;
+    	
+    	String sql = "SELECT order_id FROM orders WHERE status = 'PENDING' ORDER BY order_date ASC LIMIT 1";
+    	
+    	try(Connection con = DBConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(sql);
+    			ResultSet rs = ps.executeQuery()){
+    		
+    		if(rs.next()) {
+    			orderId = rs.getInt("order_id");
+    		}
+    	}
+    	
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return orderId;
     }
 }
 

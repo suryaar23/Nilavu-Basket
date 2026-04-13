@@ -35,4 +35,6 @@ public interface OrderDAO {
     List<Order> getCompletedOrdersByAgentId(int agentId);
     
     List<Order> getActiveOrdersByAgentId(int agentId);
+    
+    int getOldestPendingOrder();
 }

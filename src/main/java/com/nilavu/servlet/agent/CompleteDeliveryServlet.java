@@ -31,8 +31,18 @@ public class CompleteDeliveryServlet extends HttpServlet{
 			if(agentId != -1) {
 				
 				agentDAO.updateAgentStatus(agentId, "AVAILABLE");
+				
+				int pending = orderDAO.getOldestPendingOrder();
+				
+				if(pending != -1) {
+					orderDAO.assignAgent(pending, agentId);
+					orderDAO.updateOrderStatus(pending, "ASSIGNED");
+					agentDAO.updateAgentStatus(agentId, "BUSY");
+				}
+				
 			}
 			
 			response.sendRedirect(request.getContextPath() + "/agent/orders");
 	}
 }
+

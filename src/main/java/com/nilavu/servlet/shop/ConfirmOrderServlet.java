@@ -25,13 +25,17 @@ public class ConfirmOrderServlet extends HttpServlet{
 		
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
 
-		orderDAO.updateOrderStatus(orderId, "CONFIRMED");
+		//orderDAO.updateOrderStatus(orderId, "CONFIRMED");
 		
 		Agent a = agentDAO.getAvailableAgent();
 		
 		if(a != null) {
 			orderDAO.assignAgent(orderId, a.getAgent_id());
+			orderDAO.updateOrderStatus(orderId, "ASSIGNED");
 			agentDAO.updateAgentStatus(a.getAgent_id(), "BUSY");
+		}
+		else {
+			orderDAO.updateOrderStatus(orderId, "PENDING");
 		}
 		
 
