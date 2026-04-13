@@ -209,7 +209,7 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		List<Order> list = new ArrayList<>();
 		
-		String sql = "SELECT * FROM orders WHERE agent_id = ? AND status = 'ASSIGNED'";
+		String sql = "SELECT o.*,s.shop_name AS shop_name,s.address AS shop_address FROM orders o JOIN shops s ON o.shop_id = s.shop_id WHERE o.agent_id = ? AND o.status = 'ASSIGNED'";
 		
 		try(Connection con = DBConnection.getConnection();
 				PreparedStatement ps = con.prepareStatement(sql)){
@@ -231,6 +231,8 @@ public class OrderDAOImpl implements OrderDAO {
 				o.setCity(rs.getString("city"));
 				o.setState(rs.getString("state"));
 				o.setPincode(rs.getString("pincode"));
+				o.setShopName(rs.getString("shop_name"));
+				o.setShopAddress((rs.getString("shop_address")));
 				
 				list.add(o);
 			}
@@ -371,7 +373,6 @@ public class OrderDAOImpl implements OrderDAO {
     			o.setTotalAmount(rs.getDouble("total_amount"));
     			o.setShop_id(rs.getInt("shop_id"));
     			o.setAgent_id(rs.getInt("agent_id"));
-    			o.setAgent_id(rs.getInt("agent_id"));
 				o.setStreet(rs.getString("street"));
 				o.setCity(rs.getString("city"));
 				o.setState(rs.getString("state"));
@@ -391,7 +392,7 @@ public class OrderDAOImpl implements OrderDAO {
     public List<Order> getActiveOrdersByAgentId(int agentId){
     	
     	List<Order> list = new ArrayList<>();
-    	String sql = "SELECT * FROM orders WHERE agent_id = ? AND status IN ('ASSIGNED','OUT FOR DELIVERY')";
+    	String sql = "SELECT o.*,s.shop_name AS shop_name,s.address AS shop_address FROM orders o JOIN shops s ON o.shop_id = s.shop_id WHERE o.agent_id = ? AND o.status = 'OUT FOR DELIVERY'";
     	
     	
     	try(Connection con = DBConnection.getConnection();
@@ -419,6 +420,8 @@ public class OrderDAOImpl implements OrderDAO {
 				o.setCity(rs.getString("city"));
 				o.setState(rs.getString("state"));
 				o.setPincode(rs.getString("pincode"));
+				o.setShopName(rs.getString("shop_name"));
+				o.setShopAddress(rs.getString("shop_address"));
     			
     			list.add(o);
     		}

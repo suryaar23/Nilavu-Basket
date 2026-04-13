@@ -20,7 +20,7 @@ public class LanguageChangeServlet extends HttpServlet{
 			HttpSession session = request.getSession();
 			session.setAttribute("lang", language);
 			
-			String referer = request.getHeader("referer");
+			String referer = request.getHeader("Referer");
 			
 			if(referer != null) {
 				response.sendRedirect(referer);

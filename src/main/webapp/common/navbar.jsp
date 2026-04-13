@@ -40,21 +40,6 @@
             <a href="<%= homeLink %>">🛒 Nilavu Basket</a>
         </div>
 
-		<% if (user == null || "USER".equalsIgnoreCase(user.getRole())) { %>
-    		<div class="navbar-lang" style="margin-left:auto;">
-        		<form action="<%=request.getContextPath()%>/change-language"
-              			method="get" style="display:inline;">
-
-            		<select name="lang" onchange="this.form.submit()">
-                		<option value="en" <%= "en".equals(lang) ? "selected" : "" %>>English</option>
-                		<option value="ml" <%= "ml".equals(lang) ? "selected" : "" %>>Malayalam</option>
-                		<option value="ta" <%= "ta".equals(lang) ? "selected" : "" %>>Tamil</option>
-            		</select>
-            	
-        		</form>
-    		</div>
-		<% } %>
-		
         <!-- RIGHT: NAV LINKS -->
         <div class="navbar-links">
 
@@ -84,7 +69,19 @@
                 <a class="btn-nav danger" href="<%=request.getContextPath()%>/logout">Logout</a>
 
             <% } else { %>
+            
+				<div class="navbar-lang">
+        			<form action="<%=request.getContextPath()%>/change-language"
+              			method="get">
 
+            		<select name="lang" onchange="this.form.submit()">
+                		<option value="en" <%= "en".equals(lang) ? "selected" : "" %>>English</option>
+                		<option value="ml" <%= "ml".equals(lang) ? "selected" : "" %>>Malayalam</option>
+                		<option value="ta" <%= "ta".equals(lang) ? "selected" : "" %>>Tamil</option>
+            		</select>
+            	
+        			</form>
+    			</div>
                 <a href="<%=request.getContextPath()%>/user/home"><%= bundle.getString("home") %></a>
                 <a href="<%=request.getContextPath()%>/products"><%= bundle.getString("products") %></a>
                 <a href="<%=request.getContextPath()%>/viewCart"><%= bundle.getString("cart") %></a>

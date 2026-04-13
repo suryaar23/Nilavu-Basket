@@ -16,6 +16,8 @@ public class Order {
     private String city;
     private String state;
     private String pincode;
+    private String shopName;
+    private String shopAddress;
 
     // getters and setters
     
@@ -23,7 +25,7 @@ public class Order {
 		super();
 	}
 	public Order(int orderId, int userId, LocalDateTime orderDate, String status, double totalAmount, String userName,
-			int shop_id, int agent_id, int addressId, String street, String city, String state, String pincode) {
+			int shop_id, int agent_id, int addressId, String street, String city, String state, String pincode, String shopName, String shopAddress) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
@@ -38,6 +40,9 @@ public class Order {
 		this.city = city;
 		this.state = state;
 		this.pincode = pincode;
+		this.shopName  = shopName;
+		this.shopAddress = shopAddress;
+		
 	}
 	public int getOrderId() {
 		return orderId;
@@ -118,11 +123,23 @@ public class Order {
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
+	public String getShopName() {
+		return shopName;
+	}
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+	public String getShopAddress() {
+		return shopAddress;
+	}
+	public void setShopAddress(String shopAddress) {
+		this.shopAddress = shopAddress;
+	}
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", userId=" + userId + ", orderDate=" + orderDate + ", status=" + status
 				+ ", totalAmount=" + totalAmount + ", userName=" + userName + ", shop_id=" + shop_id + ", agent_id="
 				+ agent_id + ", addressId=" + addressId + ", street=" + street + ", city=" + city + ", state=" + state
-				+ ", pincode=" + pincode + "]";
+				+ ", pincode=" + pincode + ", shopName=" + shopName + ", shopAddress=" + shopAddress + "]";
 	}
 }

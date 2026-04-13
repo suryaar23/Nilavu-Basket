@@ -237,4 +237,19 @@ tr:hover {
     background: #eef2ff;
 }
 
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.navbar-lang form {
+    margin: 0;
+}
+
+.navbar-lang select {
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
 
