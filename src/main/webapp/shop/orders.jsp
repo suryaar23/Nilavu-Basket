@@ -15,7 +15,7 @@
 <jsp:include page="../common/header.jsp" />
 
 <div class="container">
-    <h2 style="text-align:center;">Order History</h2>
+    <h2 style="text-align:center;">Orders</h2>
 
     <div class="form-box" style="max-width:900px; margin:auto;">
 
