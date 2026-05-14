@@ -23,28 +23,28 @@
 
     <div class="card-grid" style="margin-top:20px;">
 
-        <!-- 📦 PRODUCTS -->
+        <!--  PRODUCTS -->
         <div class="card">
             <h3>📦 My Products</h3>
             <p style="margin-top:8px;">View and manage your products.</p>
             <a class="btn" href="<%=request.getContextPath()%>/shop/products">Manage Products</a>
         </div>
 
-        <!-- ➕ ADD PRODUCT -->
+        <!--  ADD PRODUCT -->
         <div class="card">
             <h3>➕ Add Product</h3>
             <p style="margin-top:8px;">Add new items to your shop.</p>
             <a class="btn" href="<%=request.getContextPath()%>/shop/add-product">Add Product</a>
         </div>
 
-        <!-- 🟢 CURRENT ORDERS -->
+        <!--  CURRENT ORDERS -->
         <div class="card">
             <h3>🟢 Current Orders</h3>
             <p style="margin-top:8px;">View active and pending orders.</p>
             <a class="btn" href="<%=request.getContextPath()%>/shop/orders">View Orders</a>
         </div>
 
-        <!-- 🟡 ORDER HISTORY -->
+        <!--  ORDER HISTORY -->
         <div class="card">
             <h3>🟡 Order History</h3>
             <p style="margin-top:8px;">View completed deliveries.</p>

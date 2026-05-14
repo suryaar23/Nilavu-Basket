@@ -33,7 +33,6 @@ public class ProductListServlet extends HttpServlet {
     	
         List<Product> products;
         
-        
         if((keyword != null && !keyword.isEmpty()) || (categoryId != null && !categoryId.isEmpty())) {
         	products = productDAO.searchProducts(keyword, categoryId);
         }
@@ -42,8 +41,7 @@ public class ProductListServlet extends HttpServlet {
         	products = productDAO.getProductsByShopId(shopId);
         }
         else {
-        	products = productDAO.getAllProducts();
-        	
+        	products = productDAO.getAllProducts();	
         }
         
         List<Category> categories = categoryDAO.getAllCategories();

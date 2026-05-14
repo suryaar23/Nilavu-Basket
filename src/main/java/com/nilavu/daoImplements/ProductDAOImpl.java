@@ -153,7 +153,6 @@ public class ProductDAOImpl implements ProductDAO {
         }
     }
 
-    // ✅ NEW: Get stock safely
     public int getStockByProductId(int productId) {
         int stock = 0;
         String sql = "SELECT stock FROM products WHERE product_id=?";
@@ -175,7 +174,7 @@ public class ProductDAOImpl implements ProductDAO {
         return stock;
     }
 
-    // ✅ NEW: Safe stock reduction
+    
     public boolean reduceStock(int productId, int quantity) {
         String sql = "UPDATE products SET stock = stock - ? WHERE product_id = ? AND stock >= ?";
 

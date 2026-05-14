@@ -23,7 +23,6 @@
     <div class="form-box" style="max-width:500px;">
         <form action="<%=request.getContextPath()%>/shop/update-product" method="post">
 
-            <!-- Hidden Product ID -->
             <input type="hidden" name="productId"
                    value="<%= product != null ? product.getProductId() : "" %>">
 

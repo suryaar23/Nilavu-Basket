@@ -22,8 +22,7 @@ public class CartDAOImpl implements CartDAO {
             if (rs.next()) {
                 cartId = rs.getInt("cart_id");
             } else {
-                PreparedStatement ps2 =
-                    con.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps2 = con.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
                 ps2.setInt(1, userId);
                 ps2.executeUpdate();
 

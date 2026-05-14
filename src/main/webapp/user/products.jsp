@@ -25,7 +25,7 @@
 
 <div class="container">
 
-    <!-- 🧠 Dynamic Heading -->
+    <!--  Dynamic Heading -->
     <%
         String shopId = request.getParameter("shopId");
         String keyword = request.getParameter("keyword");
@@ -49,7 +49,7 @@
         %>
     </h2>
 
-    <!-- ❌ ERROR MESSAGE -->
+    <!--  ERROR MESSAGE -->
     <%
         String error = request.getParameter("error");
         if ("limitreached".equals(error)) {
@@ -96,7 +96,7 @@
         <button class="btn" type="submit"><%= bundle.getString("search") %></button>
     </form>
 
-    <!-- 🛍 PRODUCTS GRID -->
+    <!--  PRODUCTS -->
     <div class="card-grid" style="margin-top:20px;">
 
     <%

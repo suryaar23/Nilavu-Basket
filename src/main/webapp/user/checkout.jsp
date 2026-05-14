@@ -84,7 +84,7 @@
                 %>
                 </select>
 
-                <!-- ✅ SUBMIT -->
+                <!-- SUBMIT -->
                 <button type="submit" class="btn">
                     <%= bundle.getString("confirm_place_order") %>
                 </button>

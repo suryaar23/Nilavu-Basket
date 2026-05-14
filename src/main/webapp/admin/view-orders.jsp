@@ -30,7 +30,7 @@
                 <th>Order Date</th>
                 <th>Status</th>
                 <th>Total Amount (₹)</th>
-                <th>Action</th> <!-- ✅ Added -->
+                <th>Action</th> 
             </tr>
 
         <%
@@ -47,7 +47,6 @@
                 <td><%= o.getStatus() %></td>
                 <td>₹ <%= o.getTotalAmount() %></td>
 
-                <!-- ✅ FIXED: inside td -->
                 <td style="text-align:center;">
                     <a class="btn"
                        href="<%=request.getContextPath()%>/common/order-details?orderId=<%=o.getOrderId()%>">
@@ -62,7 +61,7 @@
         %>
 
             <tr>
-                <td colspan="6" style="text-align:center;"> <!-- ✅ fixed colspan -->
+                <td colspan="6" style="text-align:center;">
                     No orders found.
                 </td>
             </tr>

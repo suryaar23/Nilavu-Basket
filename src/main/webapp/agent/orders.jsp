@@ -46,7 +46,7 @@ pageEncoding="UTF-8"%>
             <td><%= o.getStatus() %></td>
             <td>₹ <%= o.getTotalAmount() %></td>
 
-            <!-- 📍 PICKUP + DELIVERY -->
+            <!-- PICKUP + DELIVERY -->
             <td>
                 <% if ("ASSIGNED".equals(o.getStatus()) || "OUT FOR DELIVERY".equals(o.getStatus())) { %>
 

@@ -27,7 +27,7 @@ public class CartItemDAOImpl implements CartItemDAO {
 	            stock = rsStock.getInt("stock");
 	        }
 
-	        if (stock <= 0) return; // ❌ no stock → do nothing
+	        if (stock <= 0) return; //  no stock - do nothing
 
 	        // 2. Check if already in cart
 	        PreparedStatement ps = con.prepareStatement(checkSql);
@@ -39,16 +39,16 @@ public class CartItemDAOImpl implements CartItemDAO {
 	            int cartItemId = rs.getInt("cart_item_id");
 	            int currentQty = rs.getInt("quantity");
 
-	            // ❌ already reached stock limit
+	            //  already reached stock limit
 	            if (currentQty >= stock) return;
 
-	            // ✅ increase quantity
+	            //  increase quantity
 	            PreparedStatement ps2 = con.prepareStatement(updateSql);
 	            ps2.setInt(1, cartItemId);
 	            ps2.executeUpdate();
 
 	        } else {
-	            // ✅ add new row if stock exists
+	            //  add new row if stock exists
 	            PreparedStatement ps2 = con.prepareStatement(insertSql);
 	            ps2.setInt(1, cartId);
 	            ps2.setInt(2, productId);
@@ -147,7 +147,7 @@ public class CartItemDAOImpl implements CartItemDAO {
         }
     }
 
-    // ✅ NEW: how many already in cart
+    // how many already in cart
     @Override
     public int getQuantityInCart(int cartId, int productId) {
         int qty = 0;

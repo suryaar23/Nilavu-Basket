@@ -22,21 +22,21 @@
 
     <div class="card-grid" style="margin-top:20px;">
 
-        <!-- 📦 ASSIGNED ORDERS -->
+        <!-- ASSIGNED ORDERS -->
         <div class="card">
             <h3>📦 Assigned Orders</h3>
             <p style="margin-top:8px;">View orders assigned to you.</p>
             <a class="btn" href="<%=request.getContextPath()%>/agent/orders">View Orders</a>
         </div>
 
-        <!-- 🚚 ACTIVE DELIVERY -->
+        <!-- ACTIVE DELIVERY -->
         <div class="card">
             <h3>🚚 Active Deliveries</h3>
             <p style="margin-top:8px;">Orders currently out for delivery.</p>
             <a class="btn" href="<%=request.getContextPath()%>/agent/orders?filter=active">View Active</a>
         </div>
 
-        <!-- 📜 DELIVERY HISTORY -->
+        <!-- DELIVERY HISTORY -->
         <div class="card">
             <h3>📜 Delivery History</h3>
             <p style="margin-top:8px;">Completed deliveries.</p>

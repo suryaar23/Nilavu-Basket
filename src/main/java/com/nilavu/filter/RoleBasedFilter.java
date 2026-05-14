@@ -38,6 +38,11 @@ public class RoleBasedFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+        
+        if (path.startsWith(context + "/shops")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         HttpSession session = req.getSession(false);
         User user = (session != null) ? (User) session.getAttribute("loggedUser") : null;

@@ -11,13 +11,13 @@
 %>
 
 <%
-    // 🔐 Session validation
+    // Session validation
     if (session == null || session.getAttribute("loggedUser") == null) {
         response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
         return;
     }
 
-    // 🔐 Order ID validation
+    // Order ID validation
     Object orderIdObj = session.getAttribute("lastOrderId");
     if (orderIdObj == null) {
         response.sendRedirect(request.getContextPath() + "/user/orders");

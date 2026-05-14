@@ -127,7 +127,8 @@ public class CheckoutServlet extends HttpServlet {
             cartItemDAO.clearCart(cartId);
 
             // 6. Mark cart completed
-            cartDAO.markCartCompleted(cartId);
+            
+            //cartDAO.markCartCompleted(cartId);
 
             // store order id for payment page
             session.setAttribute("lastOrderId", orderId);

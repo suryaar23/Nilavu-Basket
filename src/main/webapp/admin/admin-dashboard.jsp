@@ -50,10 +50,10 @@
             <a class="btn" href="<%=request.getContextPath()%>/admin/manage-agents">View Agents</a>
         </div>
 
-        <!-- OPTIONAL: PRODUCTS (READ ONLY) -->
+        <!-- PRODUCTS -->
         <div class="card">
             <h3>📦 Products</h3>
-            <p>View all products (read-only).</p>
+            <p>View all products.</p>
             <a class="btn" href="<%=request.getContextPath()%>/admin/products">View Products</a>
         </div>
 

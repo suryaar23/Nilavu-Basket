@@ -26,7 +26,7 @@
                 <th>Stock</th>
                 <th>Description</th>
                 <th>Shop ID</th>
-                <th>Action</th>
+               <!-- <th>Action</th> -->
             </tr>
 
         <%
@@ -48,12 +48,12 @@
                 <td><%= p.getDescription() %></td>
                 <td><%= p.getShop_id() %></td>
 
-                <!-- ADMIN CONTROL -->
+                <!-- ADMIN CONTROL
                 <td>
                     <a class="btn" href="<%=request.getContextPath()%>/admin/deleteProduct?id=<%=p.getProductId()%>">
                         Remove
                     </a>
-                </td>
+                </td> -->
             </tr>
         <%
                 }
