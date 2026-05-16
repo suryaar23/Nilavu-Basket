@@ -309,7 +309,7 @@ CREATE DATABASE nilavu_basket;
 
 ### 4. Import SQL Files
 
-Import all SQL files from the `database/` folder into the created MySQL database.
+Import all SQL files from the `Databases/` folder into the created MySQL database.
 ---
 
 ### 5. Update Database Credentials
