@@ -8,7 +8,7 @@ public class DBConnection {
     // CHANGE these according to your MySQL setup
     private static final String URL = "jdbc:mysql://localhost:3306/nilavu_basket";
     private static final String USER = "root";
-    private static final String PASSWORD = "AuraSphere"; // change to your MySQL password
+    private static final String PASSWORD = "******"; // change to your MySQL password
 
     public static Connection getConnection() throws Exception {
         // Load MySQL driver
